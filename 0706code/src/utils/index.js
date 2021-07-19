@@ -111,3 +111,33 @@ export function resetForm(name, that) {
     ele.value = null
   }
 }
+
+export function isEmpty(value) {
+  if (value === null || value === undefined || !value) return true
+  if (Array.isArray(value) && !value.length) return true
+  if (JSON.stringify(value) === '{}') return true
+  return false
+}
+
+export function deepCopy(source) {
+  if (!source) return
+  let target
+  if (typeof source === 'object') {
+    // 根据source类型判断是新建一个数组还是对象
+    target = Array.isArray(source) ? [] : {}
+    // 遍历source，并且判断是source的属性才拷贝
+    for (let key in source) {
+      if (source.hasOwnProperty(key)) {
+        if (typeof source[key] !== 'object') {
+          target[key] = source[key]
+        } else {
+          // 如果内部属性存在复杂数据类型，使用递归实现深拷贝
+          target[key] = deepCopy(source[key])
+        }
+      }
+    }
+  } else {
+    target = source
+  }
+  return target
+}
