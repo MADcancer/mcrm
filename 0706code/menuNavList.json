@@ -1,0 +1,183 @@
+
+{
+  "menu": [{
+    "menuId": 1,
+    "parentId": 0,
+    "parentName": null,
+    "name": "首页",
+    "list": [{
+        "menuId": 1,
+        "parentId": 1,
+        "parentName": null,
+        "name": "首页",
+        "nameStr": "home",
+        "url": "/home"
+      },
+      {
+        "menuId": 2,
+        "parentId": 1,
+        "parentName": null,
+        "name": "积分权益审批",
+        "nameStr": "approval",
+        "url": "/approval"
+      }]
+    },
+    {
+      "menuId": 2,
+      "parentId": 0,
+      "parentName": null,
+      "name": "客户服务管理",
+      "list": [{
+            "menuId": 1,
+            "parentId": 2,
+            "parentName": null,
+            "name": "客户信息查询",
+            "nameStr": "custinfo",
+            "url": "/custmgr/custinfo"
+          },
+          {
+            "menuId": 2,
+            "parentId": 2,
+            "parentName": null,
+            "name": "客户积分冻结/解冻历史",
+            "nameStr": "scorefrz",
+            "url": "/custmgr/scorefrz"
+          },
+          {
+            "menuId": 3,
+            "parentId": 2,
+            "parentName": null,
+            "name": "客户积分调整历史",
+            "nameStr": "scoreadjust",
+            "url": "/custmgr/scoreadjust"
+          },
+          {
+              "menuId": 4,
+              "parentId": 2,
+              "parentName": null,
+              "name": "客户组管理",
+              "nameStr": "custgroup",
+              "url": "/custmgr/custgroup"
+          },
+          {
+            "menuId": 5,
+            "parentId": 2,
+            "parentName": null,
+            "name": "黑名单管理",
+            "nameStr": "custblack",
+            "url": "/custmgr/custblack"
+        }
+      ]
+    },
+    {
+      "menuId": 3,
+      "parentId": 0,
+      "parentName": null,
+      "name": "积分服务管理",
+      "list": [{
+            "menuId": 1,
+            "parentId": 3,
+            "parentName": null,
+            "name": "积分统计查询",
+            "nameStr": "scoresearch",
+            "url": "/score/scoresearch"
+          },
+          {
+            "menuId": 2,
+            "parentId": 3,
+            "parentName": null,
+            "name": "积分规则维护",
+            "nameStr": "scorerule",
+            "url": "/score/scorerule"
+          },
+          {
+            "menuId": 3,
+            "parentId": 3,
+            "parentName": null,
+            "name": "接口管理",
+            "nameStr": "interfacemgr",
+            "url": "/score/interfacemgr"
+          }
+      ]
+    },
+    {
+      "menuId": 4,
+      "parentId": 0,
+      "parentName": null,
+      "name": "权益服务管理",
+      "list": [{
+            "menuId": 1,
+            "parentId": 4,
+            "parentName": null,
+            "name": "权益规则管理",
+            "nameStr": "esequityrule",
+            "url": "/equitymgr/esequityrule"
+          },
+          {
+            "menuId": 2,
+            "parentId": 4,
+            "parentName": null,
+            "name": "权益活动管理",
+            "nameStr": "activity",
+            "url": "/equitymgr/activity"
+          },
+          {
+            "menuId": 3,
+            "parentId": 4,
+            "parentName": null,
+            "name": "抽奖活动管理",
+            "nameStr": "lottery",
+            "url": "/equitymgr/lottery"
+          },
+          {
+            "menuId": 4,
+            "parentId": 4,
+            "parentName": null,
+            "name": "抢购活动管理",
+            "nameStr": "buy",
+            "url": "/equitymgr/buy"
+          },
+          {
+            "menuId": 5,
+            "parentId": 4,
+            "parentName": null,
+            "name": "轮播图管理",
+            "nameStr": "slideshow",
+            "url": "/equitymgr/slideshow"
+          }
+      ]
+    },
+    {
+      "menuId": 5,
+      "parentId": 0,
+      "parentName": null,
+      "name": "供应商管理",
+      "list": [{
+            "menuId": 1,
+            "parentId": 5,
+            "parentName": null,
+            "name": "供应商管理",
+            "nameStr": "mgr",
+            "url": "/supplier/mgr"
+          },
+          {
+            "menuId": 2,
+            "parentId": 5,
+            "parentName": null,
+            "name": "商品管理",
+            "nameStr": "prod",
+            "url": "/supplier/prod"
+          },
+          {
+            "menuId": 3,
+            "parentId": 5,
+            "parentName": null,
+            "name": "短信模板管理",
+            "nameStr": "prodmsg",
+            "url": "/supplier/prodmsg"
+          }
+      ]
+    }
+
+  ]
+}
