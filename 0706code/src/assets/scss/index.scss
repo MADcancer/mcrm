@@ -5,7 +5,7 @@
 
 
 // Add by yueyao ST
-.el-icon-plus { 
+.el-icon-plus {
   color: #80A639;
   &:hover {
     cursor: pointer;
@@ -77,7 +77,7 @@
   .el-steps--simple {
     cursor: pointer;
   }
-  
+
   .el-icon-export {
     background: url(~@/assets/img/export-logo.png) center no-repeat;
     background-size: cover;
@@ -105,3 +105,38 @@
   .el-time-spinner__item.active:not(.disabled) {
     color: #80A639;
   }
+
+/* 滚动条有滑块的轨道部分 */
+::-webkit-scrollbar-track-piece {
+  background-color: #FFFFFF;
+  border-radius: 1px;
+}
+
+/* 整个滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 100%;
+}
+
+/* 滚动条竖向滑块 */
+::-webkit-scrollbar-thumb:vertical {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  background-color: #BABABA;
+  border-radius: 4px;
+}
+
+/* 滚动条横向滑块 */
+::-webkit-scrollbar-thumb:horizontal {
+  width: 8px;
+  height: 8px;
+  cursor: pointer;
+  background-color: #BABABA;
+  border-radius: 4px;
+}
+
+/* 同时有垂直和水平滚动条时交汇的部分 */
+::-webkit-scrollbar-corner {
+  display: block;    /* 修复交汇时出现的白块 */
+}
