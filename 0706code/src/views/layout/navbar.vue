@@ -4,30 +4,11 @@
       <div class="site-navbar__header">
         <div class="site-navbar-left">
           <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
-            <a class="site-navbar__brand-lg" href="javascript:;"
-              >苏州银行积分权益平台</a
-            >
+            <a class="site-navbar__brand-lg" href="javascript:;">苏州银行</a>
             <a class="site-navbar__brand-mini" href="javascript:;">Madp</a>
           </h1>
-          <!-- <el-menu
-            :default-active="activeIndex"
-            class="el-menu-demo"
-            mode="horizontal"
-            background-color="#5C8A06"
-            text-color="#fff"
-            active-text-color="#333333"
-            style="display:flex"
-            @select="handleSelect"
-          >
-            <el-menu-item
-              v-for="parent in $store.state.menuNavList"
-              :key="parent.menuId"
-              :index="'' + parent.menuId"
-              >{{ parent.name }}</el-menu-item
-            >
-          </el-menu> -->
         </div>
-        <div class="user">
+        <!-- <div class="user">
           <span>欢迎您</span>
           <span class="el-dropdown-link">
               {{$store.state.user.roleName}}
@@ -41,28 +22,9 @@
               <el-dropdown-item @click.native="logoutHandle()">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </div>
+        </div> -->
       </div>
     </nav>
-    <!-- <nav class="sub-navbar" v-if="$store.state.subMenuNavList && $store.state.subMenuNavList.length > 0">
-      <el-menu
-        :default-active="subActiveIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="#80A639"
-        text-color="#fff"
-        active-text-color="#fff"
-        style="border-bottom: none"
-      >
-        <el-menu-item
-          v-for="menu in $store.state.subMenuNavList"
-          :key="menu.menuId"
-          :index="menu.menuId + ''"
-          @click="gotoRoute(menu.url)"
-          >{{ menu.name }}</el-menu-item
-        >
-      </el-menu>
-    </nav> -->
     <!-- 弹窗, 修改密码 -->
     <update-password
       v-if="updatePassowrdVisible"

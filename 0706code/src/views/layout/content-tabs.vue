@@ -24,17 +24,6 @@
         </keep-alive>
       </div>
     </el-tab-pane>
-    
-    <!-- tabs tools -->
-    <el-dropdown class="site-tabs__tools" @command="toolsCommandHandle" :show-timeout="0">
-      <i class="el-icon-arrow-down el-icon--right"></i>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="closeCurrent">关闭当前标签页</el-dropdown-item>
-        <el-dropdown-item command="closeOther">关闭其它标签页</el-dropdown-item>
-        <el-dropdown-item command="closeAll">关闭全部标签页</el-dropdown-item>
-        <el-dropdown-item command="refreshCurrent">刷新当前标签页</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
   </el-tabs>
 </template>
 

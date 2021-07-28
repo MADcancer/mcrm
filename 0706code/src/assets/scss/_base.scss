@@ -122,10 +122,13 @@ img {
   right: 0;
   left: 0;
   z-index: 1030;
-  height: 50px;
+  height: 70px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-  background-color: #5C8A06;
-
+  background-color: #78B258;
+  &-left {
+    display: flex;
+    align-items: center;
+  }
   &--inverse {
     .site-navbar__body {
       background-color: transparent;
@@ -159,16 +162,16 @@ img {
     position: relative;
     float: left;
     width: 230px;
-    height: 50px;
+    height: 70px;
     overflow: hidden;
   }
   &__brand {
     display: table-cell;
     vertical-align: middle;
     width: 230px;
-    height: 50px;
+    height: 40px;
     margin: 0;
-    line-height: 50px;
+    line-height: 40px;
     font-size: 20px;
     text-align: center;
     text-transform: uppercase;
@@ -228,7 +231,7 @@ img {
     }
     .el-menu-item,
     .el-submenu .el-submenu__title {
-      height: 50px;
+      height: 70px;
       line-height: 50px;
     }
     .el-submenu > .el-menu {
@@ -249,13 +252,13 @@ img {
 ------------------------------ */
 .site-sidebar {
   position: fixed;
-  top: 50px;
+  top: 70px;
   left: 0;
   bottom: 0;
   z-index: 1020;
   width: 230px;
   overflow: hidden;
-  background-color: #5C8A06;
+  // background-color: #5C8A06;
   &--dark {
     background-color: $sidebar--background-color-dark;
     .site-sidebar__menu.el-menu {
@@ -282,7 +285,7 @@ img {
   &__inner {
     position: relative;
     z-index: 1;
-    width: 230px;
+    width: 250px;
     height: 100%;
     padding-bottom: 15px;
     overflow-y: auto;
@@ -290,15 +293,15 @@ img {
   &__menu.el-menu {
     width: 230px;
     border-right: 0;
-    background-color: #5C8A06;
+    background-color: #fff;
     .el-menu-item ,
-    .el-submenu__title{
-      color: #fff;
-      background-color: #5C8A06;
+    .el-submenu .el-submenu__title{
+      color: gray;
+      background-color: #fff;
       &:focus,
       &:hover {
-        color: #5C8A06;
-        background-color: #fff;
+        color: #fff;
+        background-color: #78B258;
       }
     }
   }
@@ -320,18 +323,16 @@ img {
 
   &__wrapper {
     position: relative;
-    padding-top: 50px;
+    padding-top: 70px;
     // margin-left: 230px;
     min-height: 100%;
     background: $content--background-color;
   }
-  &--tabs {
-    padding: 40px 0 0;
-  }
   > .el-tabs {
     > .el-tabs__header {
+      display: none;
       position: fixed;
-      top: 50px;
+      top: 70px;
       left: 230px;
       right: 0;
       z-index: 930;

@@ -52,8 +52,9 @@ export default {
       return [
         {
           'minHeight': this.$store.state.documentClientHeight + 'px',
-          'paddingTop': '75px',
-          'marginLeft': '230px'
+          'paddingTop': '95px',
+          'marginLeft': '230px',
+          'background': '#f2f2f2'
         }
       ]
     },

@@ -5,7 +5,7 @@ export default {
    * @param formatNum 默认不进行小数点的处理
    * @returns {string}
    */
-  moneyFormat(value, formatNum) {
+  moneyFormat(value, formatNum = null) {
     if (!value && value !== 0) return '-'
     if (formatNum) value = value.toFixed(formatNum)
     let intPart = Number(value) | 0 // 获取整数部分
