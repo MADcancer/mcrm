@@ -33,6 +33,7 @@
       <financial-info v-if="tabBar.id === 'financial'"></financial-info>
       <senior-executive v-if="tabBar.id === 'seniorExecutive'"></senior-executive>
       <be-listed v-if="tabBar.id === 'beListed'"></be-listed>
+      <contacts v-if="tabBar.id === 'contacts'"></contacts>
     </div>
   </div>
 </template>
