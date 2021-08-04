@@ -52,9 +52,7 @@ export default {
       return [
         {
           'minHeight': this.$store.state.documentClientHeight + 'px',
-          'paddingTop': '95px',
-          'marginLeft': '230px',
-          'background': '#f2f2f2'
+          'marginLeft': '230px'
         }
       ]
     },
@@ -64,12 +62,10 @@ export default {
     contentViewStyles() {
       var height = this.$store.state.documentClientHeight
       height -= 50 // site-topbar
-      height -= 15 // site-content padding-top
-      height -= 15 // site-content padding-bottom
       height -= 2  // el-card border-top border-bottom
       height += 'px'
       return [
-        { minHeight: height }
+        { height }
       ]
     }
   },

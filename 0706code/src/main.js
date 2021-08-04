@@ -11,6 +11,7 @@ import '@/icons'                    // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
 import { isAuth, paramTrim } from '@/utils'
 import filters from './filters'
+import './views/customerMgr/global'
 // 富文本编辑器
 // import { quillEditor } from 'vue-quill-editor'
 // import 'quill/dist/quill.core.css'

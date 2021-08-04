@@ -140,3 +140,101 @@
 ::-webkit-scrollbar-corner {
   display: block;    /* 修复交汇时出现的白块 */
 }
+
+.main-body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.scroll-body {
+  overflow-y: auto;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.el-table .light-row {
+  background: #F4F4F5;
+}
+.el-table .self-row {
+  td {
+    height: 40px;
+    padding: 0;
+    border-bottom: none;
+  }
+}
+.el-table .self-header {
+  height: 40px;
+  th {
+    padding: 0;
+    background: #E5F4D5;
+    border-bottom: none;
+  }
+}
+.el-table .self-header {
+  height: 40px;
+  th {
+    padding: 0;
+    background: #E5F4D5;
+    border-bottom: none;
+  }
+}
+.el-table .self-header-2 {
+  height: 44px;
+  th {
+    padding: 0;
+    background: #E7EDE4;
+    border-bottom: none;
+  }
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background: #EDEDED;
+  border-radius: 2px;
+}
+.title {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  .title-text {
+    font-size: 16px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #333333;
+  }
+  .button-group {
+    display: flex;
+    height: 32px;
+    border-radius: 4px;
+    border: 1px solid #C5C5C5;
+    .button-item {
+      cursor: pointer;
+      width: 58px;
+      text-align: center;
+      line-height: 32px;
+      border-left: 1px solid #C5C5C5;
+      color: #999999;
+      &:first-of-type {
+        border-left: none;
+      }
+      &.active {
+        border-left: none;
+        background: #79AC43;
+        color: #FFFFFF;
+      }
+    }
+  }
+}

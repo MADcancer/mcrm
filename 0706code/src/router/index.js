@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import customer from '@/views/customer'
 
 // 开发环境不使用懒加载, 因为懒加载页面太多的话会造成webpack热更新太慢, 所以只有开发环境使用懒加载
 const _import = require('./import-' + process.env.NODE_ENV)
@@ -24,6 +25,7 @@ const router = window.SITE_CONFIG['isSupp'] === '0' ? {
         // 通过isTab属性, 设定是否通过tab标签页展示内容
         { path: '/home', component: _import('home/index'), name: 'home', desc: '首页', meta: { isTab: true } },
         { path: '/layout-setting', component: _import('layout/setting'), name: 'setting', desc: '布局设置' },
+        { path: '/customer', component: customer, name: 'customer', desc: '客户管理', meta: { isTab: false } },
         { path: '/user', component: _import('user/index'), name: 'user', desc: '用户管理', meta: { isTab: true } },
         { path: '/role', component: _import('role/index'), name: 'role', desc: '角色管理', meta: { isTab: true } },
         { path: '/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理', meta: { isTab: true } },
