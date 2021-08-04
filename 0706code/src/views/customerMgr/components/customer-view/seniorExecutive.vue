@@ -232,7 +232,7 @@ export default {
       }
     }
     .member-message {
-      margin-left: 64px;
+      margin-left: 3%;
       padding: 18px 0;
       flex: 1;
       .label {
@@ -255,7 +255,7 @@ export default {
     }
     .divider-vertical {
       flex-shrink: 0;
-      margin: 20px 6px 20px 70px;
+      margin: 20px 6px 20px 3%;
       width: 1px;
       height: 48px;
       background: #EDEDED;
