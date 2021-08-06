@@ -10,8 +10,8 @@
         <div class="login-main">
           <h3 class="login-title">用户登录</h3>
           <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" status-icon>
-            <el-form-item prop="userId">
-              <el-input v-model="dataForm.userId" placeholder="帐号"></el-input>
+            <el-form-item prop="userNo">
+              <el-input v-model="dataForm.userNo" placeholder="帐号"></el-input>
             </el-form-item>
             <el-form-item prop="password">
               <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
@@ -46,13 +46,13 @@
       return {
         vloading: true,
         dataForm: {
-          userId: '',
+          userNo: '',
           password: '',
           uuid: '',
           captcha: ''
         },
         dataRule: {
-          userId: [
+          userNo: [
             { required: true, message: '帐号不能为空', trigger: 'blur' }
           ],
           password: [
@@ -91,7 +91,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             var params = {
-              'userid': this.dataForm.userId,
+              'userNo': this.dataForm.userNo,
               'password': this.dataForm.password,
               'uuid': this.dataForm.uuid,
               'captcha': this.dataForm.captcha,

@@ -10,6 +10,34 @@
           <icon-svg name="shouye" class="site-sidebar__menu-icon"></icon-svg>
           <span slot="title">首页</span>
         </el-menu-item>
+        <el-menu-item index="1-2" @click="$router.push({ name: 'workbench' })">
+          <icon-svg name="workbench" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">工作台</span>
+        </el-menu-item>
+        <el-menu-item index="1-3" @click="$router.push({ name: 'customerManagement' })">
+          <icon-svg name="customerManagement" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">客户查询</span>
+        </el-menu-item>
+        <el-menu-item index="1-4" @click="$router.push({ name: 'flexibleQuery' })">
+          <icon-svg name="flexibleQuery" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">灵活查询</span>
+        </el-menu-item>
+        <el-menu-item index="1-5" @click="$router.push({ name: 'visitRecordQuery' })">
+          <icon-svg name="visitRecordQuery" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">拜访记录查询</span>
+        </el-menu-item>
+        <el-menu-item index="1-6" @click="$router.push({ name: 'standingBook' })">
+          <icon-svg name="standingBook" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">台账管理</span>
+        </el-menu-item>
+        <!-- <el-menu-item index="1-7" @click="$router.push({ name: 'groupCustomerQuery' })">
+          <icon-svg name="groupCustomerQuery" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">集团客户查询</span>
+        </el-menu-item>
+        <el-menu-item index="1-8" @click="$router.push({ name: 'groupView' })">
+          <icon-svg name="groupView" class="site-sidebar__menu-icon"></icon-svg>
+          <span slot="title">集团视图</span>
+        </el-menu-item> -->
         <sub-menu-nav
           v-for="menuNav in $store.state.menuNavList"
           :key="menuNav.menuId"
