@@ -102,7 +102,7 @@ export default {
         }, {
           text: '诉讼信息',
           active: false,
-          show: true,
+          show: false,
           id: 'litigation'
         }, {
           text: '关键联系人',
