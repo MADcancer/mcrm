@@ -1,5 +1,5 @@
 <template>
-  <div class="senior-executive mt-16">
+  <div class="senior-executive">
     <div class="title">
       <div class="title-text">高管信息</div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="senior-executive mt-16">
+  <div class="senior-executive">
     <div class="title">
       <div class="title-text">关键联系人</div>
       <el-button type="warning" size="small">新增</el-button>
