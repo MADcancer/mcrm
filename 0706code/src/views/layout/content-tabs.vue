@@ -2,7 +2,7 @@
   <el-tabs
     v-model="tabActiveName"
     :closable="true"
-    type="card" 
+    type="card"
     @tab-click="selectedTabHandle"
     @tab-remove="removeTabHandle"
     :class="$store.state.subMenuNavList.length === 0? 'isSubMenu': ''"
@@ -13,7 +13,7 @@
       :label="item.title"
       :name="item.name"
       >
-      <div :body-style="contentViewStyles(item)">
+      <div :body-style="contentViewStyles(item)" style="padding-top: 20px">
         <iframe
           v-if="item.type === 'iframe'"
           :src="getNestIframeUrl(item.url)"
