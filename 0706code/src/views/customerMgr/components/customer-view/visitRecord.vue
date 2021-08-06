@@ -206,6 +206,7 @@ export default {
   border-radius: 8px;
   padding: 16px 8px;
   .visit-content {
+    margin-top: 24px;
     display: flex;
     flex-wrap: wrap;
     .card-item {
