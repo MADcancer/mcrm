@@ -271,3 +271,96 @@ export function getCreditHistoryOptions() {
   }
   return option
 }
+
+export function getAssets() {
+  let option = {
+    grid: [
+      {left: '7%', top: '10%', width: '38%', height: '38%'},
+      {left: '7.1%', top: '13.5%', width: '34.5%', height: '34.5%'}
+    ],
+    xAxis: [
+      {
+        name: '产品覆盖度',
+        nameTextStyle: {
+          color: '#333333',
+          verticalAlign: 'top'
+        },
+        min: 0,
+        max: 3.3,
+        gridIndex: 0,
+        splitNumber: 3,
+        type: 'value',
+        axisLine: {show: true, symbol: ['none', 'arrow'], lineStyle: {color: '#C5C5C5'}},
+        axisTick: false,
+        axisLabel: false,
+        zlevel: 3,
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: ['#fff']
+          }
+        },
+        boundaryGap: ['0', '20%']
+      },
+      {gridIndex: 1, type: 'category', show: false}
+    ],
+    yAxis: [
+      {
+        name: '资产余额',
+        nameTextStyle: {
+          color: '#333333'
+        },
+        min: 0,
+        max: 3.3,
+        gridIndex: 0,
+        splitNumber: 3,
+        type: 'value',
+        axisLine: {show: true, symbol: ['none', 'arrow'], lineStyle: {color: '#C5C5C5'}},
+        axisTick: false,
+        axisLabel: false,
+        zlevel: 3,
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: ['#fff']
+          }
+        },
+        boundaryGap: ['20%', '20%']
+      },
+      {gridIndex: 1, type: 'category', show: false}
+    ],
+    visualMap: {
+      min: 0,
+      max: 3,
+      orient: 'horizontal',
+      left: 'center',
+      bottom: '15%',
+      color: ['#f46042', '#7eacea', '#85b05b', '#f9c446'],
+      show: false
+    },
+    series: [
+      {
+        name: 'I',
+        type: 'scatter',
+        coordinateSystem: 'cartesian2d',
+        xAxisIndex: 0,
+        yAxisIndex: 0,
+        data: [[1.5, 1.5, 3]]
+      },
+      {
+        name: 'II',
+        type: 'heatmap',
+        coordinateSystem: 'cartesian2d',
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        silent: true,
+        data: [
+          [0, 0, 0], [0, 1, 0], [0, 2, 1],
+          [1, 0, 0], [1, 1, 1], [1, 2, 2],
+          [2, 0, 1], [2, 1, 2], [2, 2, 2]
+        ]
+      }
+    ]
+  }
+  return option
+}

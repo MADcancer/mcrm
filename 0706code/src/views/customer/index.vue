@@ -34,6 +34,7 @@
       <senior-executive v-if="tabBar.id === 'seniorExecutive'"></senior-executive>
       <be-listed v-if="tabBar.id === 'beListed'"></be-listed>
       <contacts v-if="tabBar.id === 'contacts'"></contacts>
+      <visit-record v-if="tabBar.id === 'visitRecord'"></visit-record>
     </div>
   </div>
 </template>
@@ -112,7 +113,7 @@ export default {
           text: '拜访记录信息',
           active: false,
           show: true,
-          id: 'visitRecords'
+          id: 'visitRecord'
         }
       ],
       tabBar: {}

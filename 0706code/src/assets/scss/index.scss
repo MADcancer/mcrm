@@ -238,3 +238,39 @@ li {
     }
   }
 }
+.icon-phone-visit {
+  background-image: url("../img/phone_visit.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 33px;
+  height: 33px;
+}
+.icon-face-visit {
+  background-image: url("../img/face_visit.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 33px;
+  height: 33px;
+}
+.icon-we-visit {
+  background-image: url("../img/we_visit.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 33px;
+  height: 33px;
+}
+.icon-user {
+  width: 22px;
+  height: 22px;
+  background-image: url("../img/visit_people.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.icon-date {
+  width: 22px;
+  height: 22px;
+  background-image: url("../img/date_time.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
