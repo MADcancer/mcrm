@@ -122,14 +122,6 @@
     <div class="time-line">
       <div class="title">
         <div class="title-text">合作时间线</div>
-        <div class="button-group">
-          <div class="button-item">1个月</div>
-          <div class="button-item">3个月</div>
-          <div class="button-item">6个月</div>
-          <div class="button-item">1年</div>
-          <div class="button-item">3年</div>
-          <div class="button-item active">全部</div>
-        </div>
       </div>
       <div class="time-content">
         <div class="timer-x"></div>
