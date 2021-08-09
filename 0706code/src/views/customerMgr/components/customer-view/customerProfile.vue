@@ -75,7 +75,13 @@
       </div>
       <div class="content-subject">
         <div class="content-left">
-          <div class="legend"></div>
+          <div class="legend">
+            <div class="legend-echarts" ref="legend"></div>
+            <div class="legend-table">
+
+            </div>
+            <div></div>
+          </div>
           <div class="card-box">
             <div class="card-item">
               <div class="card-top">
@@ -163,7 +169,7 @@
 </template>
 <script>
 import * as echarts from 'echarts'
-import getBalanceOptions, { getLinesOptions } from './option'
+import getBalanceOptions, {getAssets, getLinesOptions} from './option'
 export default {
   computed: {
   },
@@ -173,24 +179,31 @@ export default {
     }
   },
   methods: {
-    getEchartsBalanceView(id) {
-      let chartDom = this.$refs[id]
+    getEchartsBalanceView() {
+      let chartDom = this.$refs.chartTop
       let myChart = echarts.init(chartDom)
       let option = getBalanceOptions(2.35)
       option && myChart.setOption(option)
     },
     getEchartsLinesView(id) {
-      let chartDom = this.$refs[id]
+      let chartDom = this.$refs.chartBottom
       let myChart = echarts.init(chartDom)
       let option = getLinesOptions(2.35)
+      option && myChart.setOption(option)
+    },
+    getAssets() {
+      let chartDom = this.$refs.legend
+      let myChart = echarts.init(chartDom)
+      let option = getAssets()
       option && myChart.setOption(option)
     }
   },
   created() {
   },
   mounted() {
-    this.getEchartsBalanceView('chartTop')
-    this.getEchartsLinesView('chartBottom')
+    this.getAssets()
+    this.getEchartsBalanceView()
+    this.getEchartsLinesView()
   }
 }
 </script>
@@ -306,6 +319,14 @@ export default {
       .legend {
         height: 254px;
         border-bottom: 1px solid #EDEDED;
+        display: flex;
+        .legend-echarts {
+          width: 253px;
+          flex-shrink: 0;
+        }
+        .legend-table {
+          flex: 1;
+        }
       }
       .card-box {
         display: flex;
