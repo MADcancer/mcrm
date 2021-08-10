@@ -52,9 +52,7 @@ export default {
       return [
         {
           'minHeight': this.$store.state.documentClientHeight + 'px',
-          'paddingTop': '95px',
-          'marginLeft': '230px',
-          'background': '#f2f2f2'
+          'marginLeft': '230px'
         }
       ]
     },
@@ -69,7 +67,7 @@ export default {
       height -= 2  // el-card border-top border-bottom
       height += 'px'
       return [
-        { minHeight: height }
+        { height }
       ]
     }
   },
