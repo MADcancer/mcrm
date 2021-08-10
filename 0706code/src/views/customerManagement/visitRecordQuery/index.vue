@@ -13,7 +13,7 @@
       <div style="height: 250px">
         <el-form ref="form" :model="form" label-width="160px">
           <el-col :span="12">
-            <el-form-item label="客户编号">
+            <el-form-item label="统一社会信用证代码">
               <el-input v-model="form.name"> </el-input>
             </el-form-item>
           </el-col>
@@ -82,7 +82,7 @@
         @selection-change="tableRowClick"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column prop="date" label="客户编号"> </el-table-column>
+        <el-table-column prop="date" label="统一社会信用证代码"> </el-table-column>
         <el-table-column prop="date" label="客户名称"> </el-table-column>
         <el-table-column prop="date" label="客户类型"> </el-table-column>
         <el-table-column prop="date" label="拜访方式"> </el-table-column>
@@ -121,7 +121,7 @@
       >
         <div class="remindDetailDiv">
           <div class="grey">
-            <div>客户编号</div>
+            <div>统一社会信用证代码</div>
             <div>1000</div>
           </div>
           <div class="grey">
@@ -186,7 +186,7 @@
           <el-form ref="form2" :model="form2" label-width="80px" size="medium">
             <el-row>
               <el-col :span="12">
-                <el-form-item label="客户编号">
+                <el-form-item label="统一社会信用证代码">
                   <el-input v-model="form2.name"></el-input>
                 </el-form-item>
               </el-col>
