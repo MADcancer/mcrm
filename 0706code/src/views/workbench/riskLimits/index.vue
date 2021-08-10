@@ -1,6 +1,15 @@
 <template>
-  <div class="riskLimits">
-    <el-card>
+  <div class="">
+    <div style="width: 100%; height: 30px">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/workbench' }">
+          工作台
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>风险限额</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <el-card class="riskLimits">
       <div slot="header" class="clearfix">
         <span>风险限额</span>
       </div>

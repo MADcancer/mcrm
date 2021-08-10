@@ -1,148 +1,158 @@
 <template>
-  <el-card class="standingBook box-card">
-    <div slot="header" class="clearfix">
-      <span>台账管理</span>
+  <div>
+    <div style="width: 100%; height: 30px">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item> 台账管理 </el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
-    <div style="height: 190px">
-      <el-form ref="form" :model="form" label-width="160px">
+    <el-card class="standingBook box-card">
+      <div slot="header" class="clearfix">
+        <span>台账管理</span>
+      </div>
+      <div style="height: 190px">
+        <el-form ref="form" :model="form" label-width="160px">
+          <el-col :span="12">
+            <el-form-item label="选择模板">
+              <el-select v-model="form.category" style="width: 100%">
+                <el-option label="类别一" value="1"></el-option>
+                <el-option label="类别二" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="上传人">
+              <el-select v-model="form.category" style="width: 100%">
+                <el-option label="类别一" value="1"></el-option>
+                <el-option label="类别二" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="上传人所属机构">
+              <el-select v-model="form.category" style="width: 100%">
+                <el-option label="类别一" value="1"></el-option>
+                <el-option label="类别二" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="上传时间">
+              <el-date-picker
+                type="date"
+                placeholder="选择日期"
+                v-model="form.startDate"
+                style="width: 100%"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-select v-model="form.category" style="width: 100%">
+                <el-option label="类别一" value="1"></el-option>
+                <el-option label="类别二" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item style="text-align: right">
+              <el-button type="primary">查询</el-button>
+              <el-button @click="resetForm">重置</el-button>
+            </el-form-item>
+          </el-col>
+        </el-form>
+      </div>
+      <div class="line"></div>
+      <el-row style="margin-bottom: 10px">
         <el-col :span="12">
-          <el-form-item label="选择模板">
-            <el-select v-model="form.category" style="width: 100%">
-              <el-option label="类别一" value="1"></el-option>
-              <el-option label="类别二" value="2"></el-option>
-            </el-select>
-          </el-form-item>
+          <el-button type="primary">下载台账</el-button>
+          <el-button type="primary">下载模板</el-button>
+          <el-button type="primary">上传-全量更新</el-button>
+          <el-button type="primary">上传-追加更新</el-button>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="上传人">
-            <el-select v-model="form.category" style="width: 100%">
-              <el-option label="类别一" value="1"></el-option>
-              <el-option label="类别二" value="2"></el-option>
-            </el-select>
-          </el-form-item>
+        <el-col :span="12" style="text-align: right">
+          <el-button type="primary" :disabled="!mainTableCheck">
+            删除
+          </el-button>
+          <el-button type="primary" :disabled="!mainTableCheck">
+            同意导入
+          </el-button>
+          <el-button type="primary" :disabled="!mainTableCheck">
+            拒绝导入
+          </el-button>
         </el-col>
-        <el-col :span="12">
-          <el-form-item label="上传人所属机构">
-            <el-select v-model="form.category" style="width: 100%">
-              <el-option label="类别一" value="1"></el-option>
-              <el-option label="类别二" value="2"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="上传时间">
-            <el-date-picker
-              type="date"
-              placeholder="选择日期"
-              v-model="form.startDate"
-              style="width: 100%"
-            ></el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="状态">
-            <el-select v-model="form.category" style="width: 100%">
-              <el-option label="类别一" value="1"></el-option>
-              <el-option label="类别二" value="2"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item style="text-align: right">
-            <el-button type="primary">查询</el-button>
-            <el-button @click="resetForm">重置</el-button>
-          </el-form-item>
-        </el-col>
-      </el-form>
-    </div>
-    <div class="line"></div>
-    <el-row style="margin-bottom: 10px">
-      <el-col :span="12">
-        <el-button type="primary">下载台账</el-button>
-        <el-button type="primary">下载模板</el-button>
-        <el-button type="primary">上传-全量更新</el-button>
-        <el-button type="primary">上传-追加更新</el-button>
-      </el-col>
-      <el-col :span="12" style="text-align: right">
-        <el-button type="primary" :disabled="!mainTableCheck"> 删除 </el-button>
-        <el-button type="primary" :disabled="!mainTableCheck">
-          同意导入
-        </el-button>
-        <el-button type="primary" :disabled="!mainTableCheck">
-          拒绝导入
-        </el-button>
-      </el-col>
-    </el-row>
-    <el-table
-      :data="tableData"
-      ref="mainTable"
-      stripe
-      style="width: 100%"
-      @selection-change="tableRowClick"
-    >
-      <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="date" label="模板名称"> </el-table-column>
-      <el-table-column prop="date" label="上传时间"> </el-table-column>
-      <el-table-column prop="date" label="上传人"> </el-table-column>
-      <el-table-column prop="date" label="上传人所属机构"> </el-table-column>
-      <el-table-column prop="date" label="状态"> </el-table-column>
-      <el-table-column prop="date" label="审批人"> </el-table-column>
-      <el-table-column prop="date" label="上传内容"> </el-table-column>
-    </el-table>
-
-    <div class="block">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="current"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="size"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+      </el-row>
+      <el-table
+        :data="tableData"
+        ref="mainTable"
+        stripe
+        style="width: 100%"
+        @selection-change="tableRowClick"
       >
-      </el-pagination>
-    </div>
-    <el-dialog
-      title="提醒详情页面"
-      :visible.sync="dialogVisible"
-      width="80%"
-      :before-close="handleClose"
-    >
-      <div class="remindDetailDiv">
-        <div class="grey">
-          <div>是否已读</div>
-          <div>是</div>
-        </div>
-        <div class="grey">
-          <div>客户名称</div>
-          <div>中航工业集团财务有限公司</div>
-        </div>
-        <div>
-          <div>提醒名称</div>
-          <div>客户关系变更提醒</div>
-        </div>
-        <div>
-          <div>提醒开始日期</div>
-          <div>2020.20.20</div>
-        </div>
-        <div class="grey">
-          <div>提醒内容</div>
-          <div>客户关系变更提醒</div>
-        </div>
-        <div class="grey">
-          <div>拜访内容</div>
-          <div>2020.20.20</div>
-        </div>
-        <div style="width: 100%">
-          <div>备注</div>
-          <div>备注</div>
-        </div>
+        <el-table-column type="selection" width="55"> </el-table-column>
+        <el-table-column prop="date" label="模板名称"> </el-table-column>
+        <el-table-column prop="date" label="上传时间"> </el-table-column>
+        <el-table-column prop="date" label="上传人"> </el-table-column>
+        <el-table-column prop="date" label="上传人所属机构"> </el-table-column>
+        <el-table-column prop="date" label="状态"> </el-table-column>
+        <el-table-column prop="date" label="审批人"> </el-table-column>
+        <el-table-column prop="date" label="上传内容"> </el-table-column>
+      </el-table>
+
+      <div class="block">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="current"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="size"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+        >
+        </el-pagination>
       </div>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">关闭</el-button>
-      </div>
-    </el-dialog>
-  </el-card>
+      <el-dialog
+        title="提醒详情页面"
+        :visible.sync="dialogVisible"
+        width="80%"
+        :before-close="handleClose"
+      >
+        <div class="remindDetailDiv">
+          <div class="grey">
+            <div>是否已读</div>
+            <div>是</div>
+          </div>
+          <div class="grey">
+            <div>客户名称</div>
+            <div>中航工业集团财务有限公司</div>
+          </div>
+          <div>
+            <div>提醒名称</div>
+            <div>客户关系变更提醒</div>
+          </div>
+          <div>
+            <div>提醒开始日期</div>
+            <div>2020.20.20</div>
+          </div>
+          <div class="grey">
+            <div>提醒内容</div>
+            <div>客户关系变更提醒</div>
+          </div>
+          <div class="grey">
+            <div>拜访内容</div>
+            <div>2020.20.20</div>
+          </div>
+          <div style="width: 100%">
+            <div>备注</div>
+            <div>备注</div>
+          </div>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </el-card>
+  </div>
 </template>
 <script>
 import API from '@/api'

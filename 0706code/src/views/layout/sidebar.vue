@@ -30,14 +30,14 @@
           <icon-svg name="standingBook" class="site-sidebar__menu-icon"></icon-svg>
           <span slot="title">台账管理</span>
         </el-menu-item>
-        <!-- <el-menu-item index="1-7" @click="$router.push({ name: 'groupCustomerQuery' })">
+        <el-menu-item index="1-7" @click="$router.push({ name: 'groupCustomerQuery' })">
           <icon-svg name="groupCustomerQuery" class="site-sidebar__menu-icon"></icon-svg>
           <span slot="title">集团客户查询</span>
         </el-menu-item>
         <el-menu-item index="1-8" @click="$router.push({ name: 'groupView' })">
           <icon-svg name="groupView" class="site-sidebar__menu-icon"></icon-svg>
           <span slot="title">集团视图</span>
-        </el-menu-item> -->
+        </el-menu-item>
         <sub-menu-nav
           v-for="menuNav in $store.state.menuNavList"
           :key="menuNav.menuId"

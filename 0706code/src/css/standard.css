@@ -1,0 +1,26 @@
+.el-table /deep/ .tableHeader th {
+    background-color: #e5f4d5 !important;
+    color: #323232;
+}
+
+.el-pagination.is-background /deep/ .el-pager li {
+    background-color: #fff;
+    border: 1px solid #e7e7e7;
+    color: #202224;
+    padding: 0 10px;
+}
+
+.el-pagination.is-background /deep/ .el-pager li:not(.disabled).active {
+    background-color: #79ac43
+}
+
+.el-pagination.is-background /deep/ .el-pager li:not(.disabled):not(.active):hover {
+    background-color: #84c22e;
+    color: #fff;
+}
+
+.el-pagination.is-background /deep/ .btn-prev,
+.el-pagination.is-background /deep/ .btn-next {
+    background-color: #fff;
+    border: 1px solid #e7e7e7;
+}

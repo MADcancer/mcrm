@@ -6,8 +6,8 @@ import App from '@/App'
 import router from '@/router'       // api: https://github.com/vuejs/vue-router
 import store from '@/store'         // api: https://github.com/vuejs/vuex
 import VueCookie from 'vue-cookie'  // api: https://github.com/alfhen/vue-cookie
-import '@/element-ui'               // api: https://github.com/ElemeFE/element
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'           // api: https://github.com/ElemeFE/element
+import 'element-ui/lib/theme-chalk/index.css'
 import '@/icons'                    // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
 import { isAuth, paramTrim } from '@/utils'
@@ -20,6 +20,7 @@ import filters from './filters'
 
 // Vue.use(VueCookie, quillEditor)
 Vue.use(VueCookie)
+Vue.use(ElementUI)
 for (const key of Object.keys(filters)) {
   Vue.filter(key, filters[key])
 }

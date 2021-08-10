@@ -1,106 +1,117 @@
 <template>
-  <el-card class="flexibleQuery box-card">
-    <div slot="header" class="clearfix">
-      <span>灵活查询</span>
+  <div>
+    <div style="width: 100%; height: 30px">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item> 灵活查询 </el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
-    <div class="cardContent">
-      <div class="cardContentLeft">
-        <div class="searchInputDiv">
-          <el-input
-            placeholder="搜索"
-            size="medium"
-            suffix-icon="el-icon-search"
-            v-model="cardInput"
-          >
-          </el-input>
+    <el-card class="flexibleQuery box-card">
+      <div slot="header" class="clearfix">
+        <span>灵活查询</span>
+      </div>
+      <div class="cardContent">
+        <div class="cardContentLeft">
+          <div class="searchInputDiv">
+            <el-input
+              placeholder="搜索"
+              size="medium"
+              suffix-icon="el-icon-search"
+              v-model="cardInput"
+            >
+            </el-input>
+          </div>
+          <div>
+            <el-tree
+              style="background-color: #fafbfc; margin-top: 20px"
+              :data="treeData"
+              :props="defaultProps"
+              show-checkbox
+              :filter-node-method="filterNode"
+              @check="handleNodeCheck"
+              ref="tree"
+              node-key="id"
+              :default-expanded-keys="[10, 20, 30, 40, 50]"
+            ></el-tree>
+          </div>
         </div>
-        <div>
-          <el-tree
-            style="background-color: #fafbfc; margin-top: 20px"
-            :data="treeData"
-            :props="defaultProps"
-            show-checkbox
-            :filter-node-method="filterNode"
-            @check="handleNodeCheck"
-            ref="tree"
-            node-key="id"
-            :default-expanded-keys="[10, 20, 30, 40, 50]"
-          ></el-tree>
+        <div class="cardContentRight">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>客户基本信息</span>
+            </div>
+            <div
+              v-for="(item, index) in queryList"
+              :key="index"
+              class="queryCondition"
+            >
+              <div class="queryConditionTitle">
+                <div class="queryConditionTitleLeft">
+                  <div class="greenBox"></div>
+                  <div>{{ item.label }}</div>
+                </div>
+                <div>
+                  <el-button
+                    type="danger"
+                    size="medium"
+                    @click="delQuery(index)"
+                    >删除</el-button
+                  >
+                </div>
+              </div>
+              <div class="queryConditionContent">
+                <el-form label-width="80px">
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="属性名称">
+                        <el-input v-model="name"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="操作符">
+                        <el-input v-model="name"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="12">
+                      <el-form-item label="属性值">
+                        <el-input v-model="name"></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item label="条件关系">
+                        <el-select v-model="relationship" style="width: 100%">
+                          <el-option label="与" value="1"></el-option>
+                          <el-option label="或" value="2"></el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
+              </div>
+              <div class="splitLine" v-if="index < queryList.length - 1">
+                <div></div>
+                <img
+                  src="/static/img/customerManagement/link.png"
+                  alt=""
+                  srcset=""
+                />
+                <div></div>
+              </div>
+            </div>
+            <div class="queryResult">
+              <div>筛选条数</div>
+              <div><el-input v-model="queryResultNum"></el-input></div>
+              <el-button type="danger">查询结果</el-button>
+              <el-button type="success">保存</el-button>
+              <el-button @click="reset">重置</el-button>
+            </div>
+          </el-card>
         </div>
       </div>
-      <div class="cardContentRight">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>客户基本信息</span>
-          </div>
-          <div
-            v-for="(item, index) in queryList"
-            :key="index"
-            class="queryCondition"
-          >
-            <div class="queryConditionTitle">
-              <div class="queryConditionTitleLeft">
-                <div class="greenBox"></div>
-                <div>{{ item.label }}</div>
-              </div>
-              <div>
-                <el-button type="danger" size="medium" @click="delQuery(index)"
-                  >删除</el-button
-                >
-              </div>
-            </div>
-            <div class="queryConditionContent">
-              <el-form label-width="80px">
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="属性名称">
-                      <el-input v-model="name"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="操作符">
-                      <el-input v-model="name"></el-input>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="12">
-                    <el-form-item label="属性值">
-                      <el-input v-model="name"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="12">
-                    <el-form-item label="条件关系">
-                      <el-select v-model="relationship" style="width:100%">
-                        <el-option label="与" value="1"></el-option>
-                        <el-option label="或" value="2"></el-option>
-                      </el-select>
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-              </el-form>
-            </div>
-            <div class="splitLine" v-if="index < queryList.length - 1">
-              <div></div>
-              <img
-                src="/static/img/customerManagement/link.png"
-                alt=""
-                srcset=""
-              />
-              <div></div>
-            </div>
-          </div>
-          <div class="queryResult">
-            <div>筛选条数</div>
-            <div><el-input v-model="queryResultNum"></el-input></div>
-            <el-button type="danger">查询结果</el-button>
-            <el-button type="success">保存</el-button>
-            <el-button @click="reset">重置</el-button>
-          </div>
-        </el-card>
-      </div>
-    </div>
-  </el-card>
+    </el-card>
+  </div>
 </template>
 <script>
 import API from '@/api'

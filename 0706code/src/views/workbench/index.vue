@@ -1,87 +1,97 @@
 <template>
   <div class="workbench">
+    <div style="width: 100%; height: 30px">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>工作台</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <div class="cardsDiv">
-      <div class="card eventReminder">
-        <div class="cardTitle">
-          <div>
-            <div></div>
+      <div class="cardsDivRow1">
+        <div class="card eventReminder">
+          <div class="cardTitle">
             <div>
-              事件提醒（待阅读<span style="color: #f5874a">{{
-                eventReminderUnReadNum
-              }}</span
-              >）
+              <div></div>
+              <div>
+                事件提醒（待阅读<span style="color: #f5874a">{{
+                  eventReminderUnReadNum
+                }}</span
+                >）
+              </div>
             </div>
+            <div @click="goEventReminder">查看更多></div>
           </div>
-          <div @click="goEventReminder">查看更多></div>
+          <div
+            class="cardContent"
+            v-for="(item, index) in eventReminderList"
+            :key="index"
+          >
+            <div>{{ item }}</div>
+            <div>2020-20-20</div>
+          </div>
         </div>
-        <div
-          class="cardContent"
-          v-for="(item, index) in eventReminderList"
-          :key="index"
-        >
-          <div>{{ item }}</div>
-          <div>2020-20-20</div>
+        <div class="card notice">
+          <div class="cardTitle">
+            <div>
+              <div></div>
+              <div>
+                公告（待阅读<span style="color: #f5874a">{{
+                  noticeUnReadNum
+                }}</span
+                >）
+              </div>
+            </div>
+            <div @click="goNoticeManagement">查看更多></div>
+          </div>
+          <div
+            class="cardContent"
+            v-for="(item, index) in eventReminderList"
+            :key="index"
+          >
+            <div>{{ item }}</div>
+            <div>2020-20-20</div>
+          </div>
         </div>
       </div>
-      <div class="card notice">
-        <div class="cardTitle">
-          <div>
-            <div></div>
+      <div class="cardsDivRow2">
+        <div class="card myProcess">
+          <div class="cardTitle">
             <div>
-              公告（待阅读<span style="color: #f5874a">{{
-                noticeUnReadNum
-              }}</span
-              >）
+              <div></div>
+              <div>
+                我的流程（待审批<span style="color: #f5874a">{{
+                  myProcessUnReadNum
+                }}</span
+                >）
+              </div>
             </div>
+            <div @click="goMyProcess">查看更多></div>
           </div>
-          <div @click="goNoticeManagement">查看更多></div>
+          <div
+            class="cardContent"
+            v-for="(item, index) in eventReminderList"
+            :key="index"
+          >
+            <div>{{ item }}</div>
+            <div>2020-20-20</div>
+          </div>
         </div>
-        <div
-          class="cardContent"
-          v-for="(item, index) in eventReminderList"
-          :key="index"
-        >
-          <div>{{ item }}</div>
-          <div>2020-20-20</div>
-        </div>
-      </div>
-      <div class="card myProcess">
-        <div class="cardTitle">
-          <div>
-            <div></div>
+        <div class="card riskLimits">
+          <div class="cardTitle">
             <div>
-              我的流程（待审批<span style="color: #f5874a">{{
-                myProcessUnReadNum
-              }}</span
-              >）
+              <div></div>
+              <div>风险限额</div>
             </div>
+            <div @click="goRiskLimits">查看更多></div>
           </div>
-          <div @click="goMyProcess">查看更多></div>
-        </div>
-        <div
-          class="cardContent"
-          v-for="(item, index) in eventReminderList"
-          :key="index"
-        >
-          <div>{{ item }}</div>
-          <div>2020-20-20</div>
-        </div>
-      </div>
-      <div class="card riskLimits">
-        <div class="cardTitle">
-          <div>
-            <div></div>
-            <div>风险限额</div>
+          <div
+            class="cardContent"
+            v-for="(item, index) in eventReminderList"
+            :key="index"
+          >
+            <div>{{ item }}</div>
+            <div>2020-20-20</div>
           </div>
-          <div @click="goRiskLimits">查看更多></div>
-        </div>
-        <div
-          class="cardContent"
-          v-for="(item, index) in eventReminderList"
-          :key="index"
-        >
-          <div>{{ item }}</div>
-          <div>2020-20-20</div>
         </div>
       </div>
     </div>
@@ -96,7 +106,7 @@
               <el-button type="success" size="small" plain @click="upFTPPrice"
                 >上传</el-button
               >
-              <el-select
+              <!-- <el-select
                 style="margin-left: 10px"
                 v-model="productValue"
                 placeholder="产品分类"
@@ -109,7 +119,7 @@
                   :value="item.value"
                 >
                 </el-option>
-              </el-select>
+              </el-select> -->
             </div>
           </div>
           <div class="echartsDivContent">
@@ -185,6 +195,19 @@ export default {
       return this.$store.state.user.roleId.toString().indexOf('03') !== -1
     },
   },
+  watch: {
+    $route(to, form) {
+      console.log(to.name)
+      if (to.name == 'workbench') {
+        this.initFTPOffer() // 加载总部FTP报价
+        this.getHomeInfo() // 首页公告信息查看
+      }
+    },
+  },
+  mounted() {
+    this.initFTPOffer() // 加载总部FTP报价
+    this.getHomeInfo() // 首页公告信息查看
+  },
   data() {
     return {
       eventReminderList: [1, 2, 3],
@@ -243,18 +266,18 @@ export default {
           referent: '同业存单',
         },
       ],
-      productList: [
-        { value: 0, label: '0/N' },
-        { value: 1, label: '7D' },
-        { value: 2, label: '14D' },
-        { value: 3, label: '21D' },
-        { value: 4, label: '1M' },
-        { value: 5, label: '3M' },
-        { value: 6, label: '6M' },
-        { value: 7, label: '9M' },
-        { value: 8, label: '1Y' },
-      ],
-      productValue: '',
+      // productList: [
+      //   { value: 0, label: '0/N' },
+      //   { value: 1, label: '7D' },
+      //   { value: 2, label: '14D' },
+      //   { value: 3, label: '21D' },
+      //   { value: 4, label: '1M' },
+      //   { value: 5, label: '3M' },
+      //   { value: 6, label: '6M' },
+      //   { value: 7, label: '9M' },
+      //   { value: 8, label: '1Y' },
+      // ],
+      // productValue: '',
       radioValue: 0,
     }
   },
@@ -275,8 +298,25 @@ export default {
     goRiskLimits() {
       this.$router.push({ name: 'riskLimits' })
     },
+    // 首页公告信息查看
+    getHomeInfo() {
+      let param = {}
+      API.workbench.getHomeInfo(param).then(({ data }) => {
+        console.log(data)
+        if (data && data.code === 0) {
+        } else {
+        }
+      })
+    },
     // 初始化 FTP报价图表
     initFTPOffer() {
+      let param = {}
+      API.workbench.getFtPPrice(param).then(({ data }) => {
+        if (data && data.code === 0) {
+          // console.log(data)
+        } else {
+        }
+      })
       var chartDom = document.getElementById('echarts')
       var myChart = echarts.init(chartDom)
       var option
@@ -303,35 +343,51 @@ export default {
       this.dialogVisible = true
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.initFTPOffer() //加载总部FTP报价
-    })
-  },
 }
 </script>
 <style scoped>
+@import '../../css/standard.css';
 .workbench {
   min-width: 1130px;
   height: 100%;
 }
 .cardsDiv {
   width: 100%;
-  height: 507px;
+  height: 496px;
   display: flex;
   align-content: space-between;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.cardsDivRow1,
+.cardsDivRow2 {
+  width: 100%;
+  height: 240px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cardsDivRow2 {
+  margin-bottom: 0;
+}
 .card {
   min-width: 560px;
-  width: 49%;
+  width: 50%;
   height: 240px;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.06);
   background-color: #fff;
-  border-radius: 1px;
+  border-radius: 8px;
   box-sizing: border-box;
   padding: 0px 24px 22px 24px;
+}
+.eventReminder,
+.myProcess {
+  margin-right: 8px;
+}
+.notice,
+.riskLimits {
+  margin-left: 8px;
 }
 .cardTitle {
   width: 100%;
@@ -369,7 +425,7 @@ export default {
   background-color: #fff;
   box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
-  margin-top: 21px;
+  margin-top: 16px;
   margin-bottom: 40px;
   padding-top: 13px;
 }
