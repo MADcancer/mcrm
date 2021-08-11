@@ -13,15 +13,21 @@
       border
       v-loading="dataListLoading"
       style="width: 100%">
-      <el-table-column
+      <!-- <el-table-column
         prop="id"
         header-align="center"
         align="center"
         width="80"
         label="ID">
+      </el-table-column> -->
+      <el-table-column
+        prop="userNo"
+        header-align="center"
+        align="center"
+        label="用户号">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="userName"
         header-align="center"
         align="center"
         label="用户名">
@@ -62,10 +68,17 @@
         label="IP地址">
       </el-table-column>
       <el-table-column
+        prop="remark"
+        header-align="center"
+        align="center"
+        width="120"
+        label="备注">
+      </el-table-column>
+      <el-table-column
         prop="createDate"
         header-align="center"
         align="center"
-        width="180"
+        width="160"
         label="创建时间">
       </el-table-column>
     </el-table>

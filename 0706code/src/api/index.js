@@ -36,6 +36,7 @@ import * as report from './modules/equitymgr/report'
 import * as crmscore from './modules/crm/score'
 import * as engine from './modules/engine'
 import * as coupon from './modules/coupon'
+import * as cockpit from './modules/cockpit'
 export default {
   common,     // 公共
   user,       // 管理员管理
@@ -75,6 +76,7 @@ export default {
   loseffect,      // 券码失效
   custgrey,      // 灰度名单
   voteact,      // 票选活动
-  supplierEmail   // 业务邮箱维护
+  supplierEmail,   // 业务邮箱维护
+  cockpit //驾驶舱
   // songxiongxiong END
 }

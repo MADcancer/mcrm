@@ -13,8 +13,8 @@ export function list () {
         'totalPage': 1,
         'currPage': 1,
         'list': [{
-          'userId': 1,
-          'username': 'admin',
+          'userNo': 1,
+          'userName': 'admin',
           'password': '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d',
           'salt': 'YzcmCZNvbXocrsz9dm8e',
           'email': 'root@renren.io',
@@ -25,8 +25,8 @@ export function list () {
           'createTime': '2016-11-11 11:11:11'
         },
         {
-          'userId': 2,
-          'username': 'test',
+          'userNo': 2,
+          'userName': 'test',
           'password': 'e477847e4d57f667c1ff1e8a7d463a31583563104270e61f589fa829ab56a8a9',
           'salt': 'FWrbqmSyS3J0jps556lt',
           'email': '11@11.com',
@@ -51,8 +51,8 @@ export function info () {
       'msg': 'success',
       'code': 0,
       'user': {
-        'userId': 1,
-        'username': 'admin',
+        'userNo': 1,
+        'userName': 'admin',
         'password': '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d',
         'salt': 'YzcmCZNvbXocrsz9dm8e',
         'email': 'root@renren.io',
