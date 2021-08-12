@@ -12,9 +12,9 @@
       label-width="80px"
       @keyup.enter.native="dataFormSubmit()"
     >
-      <el-form-item label="用户号" prop="userId">
+      <el-form-item label="用户号" prop="userNo">
         <el-input
-          v-model="dataForm.userId"
+          v-model="dataForm.userNo"
           maxlength="7"
           placeholder="登录账户"
           :disabled="!!dataForm.id"
@@ -171,7 +171,7 @@ export default {
       roleList: [],
       dataForm: {
         id: 0,
-        userId: '',
+        userNo: '',
         userName: '',
         password: '',
         comfirmPassword: '',
@@ -186,7 +186,7 @@ export default {
       },
       loading: false,
       dataRule: {
-        userId: [
+        userNo: [
           { required: true, message: '用户号不能为空', trigger: 'blur' },
           { validator: validateUserId, trigger: 'blur' }
         ],
@@ -236,8 +236,8 @@ export default {
           if (this.dataForm.id) {
             API.user.info(id).then(({ data }) => {
               if (data && data.code === 0) {
-                this.dataForm.userId = data.data.userId
-                this.dataForm.userName = data.data.username
+                this.dataForm.userNo = data.data.userNo
+                this.dataForm.userName = data.data.userName
                 this.dataForm.salt = data.data.salt
                 this.dataForm.email = data.data.email
                 this.dataForm.mobile = data.data.mobile
@@ -298,8 +298,8 @@ export default {
           let roleList = []
           roleList.push(this.dataForm.roleIdList)
           var params = {
-            userId: this.dataForm.userId || undefined,
-            username: this.dataForm.userName,
+            userNo: this.dataForm.userNo || undefined,
+            userName: this.dataForm.userName,
             password: this.dataForm.password,
             salt: this.dataForm.salt,
             email: this.dataForm.email,

@@ -23,14 +23,14 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="userId"
+        prop="userNo"
         header-align="center"
         align="center"
         width="80"
         label="用户号">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="userName"
         header-align="center"
         align="center"
         label="用户名">
@@ -71,8 +71,8 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userNo)">修改</el-button>
+          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userNo)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -121,7 +121,7 @@
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          username: this.dataForm.userName
+          userName: this.dataForm.userName
         }
         API.user.list(params).then(({data}) => {
           if (data && data.code === 0) {
@@ -159,7 +159,7 @@
       // 删除
       deleteHandle (id) {
         var userIds = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
+          return item.userNo
         })
         this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
           confirmButtonText: '确定',

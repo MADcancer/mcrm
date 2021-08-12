@@ -8,7 +8,7 @@
             <a class="site-navbar__brand-mini" href="javascript:;">Madp</a>
           </h1>
         </div>
-        <!-- <div class="user">
+        <div class="user">
           <span>欢迎您</span>
           <span class="el-dropdown-link">
               {{$store.state.user.roleName}}
@@ -22,7 +22,7 @@
               <el-dropdown-item @click.native="logoutHandle()">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </div> -->
+        </div>
       </div>
     </nav>
     <!-- 弹窗, 修改密码 -->
@@ -105,12 +105,12 @@ export default {
     // 跳转
     gotoRoute(url) {
       this.$router.push({name: getRouteNameByUrl(url)})
-      // console.log(this.$store.state.subMenuNavList)
     },
     // 获取菜单导航列表 / 权限
     getMenuNavList() {
       API.menu.nav().then(({ data }) => {
         if (data && data.code === 0) {
+          console.log(this.$store.state)
           this.UPDATE_MENU_NAV_LIST(data.data.menuList)
           this.activeIndex = data.data.menuList[0].menuId.toString()
           sessionStorage.setItem(

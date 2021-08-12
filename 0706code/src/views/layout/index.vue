@@ -73,7 +73,7 @@ export default {
   },
   created() {
     this.getUserInfo()
-    this.init()
+    // this.init()
   },
   mounted() {
     this.resetDocumentClientHeight()
@@ -125,8 +125,8 @@ export default {
         if (data && data.code === 0) {
           this.loading = false
           this.DELETE_CONTENT_TABS()
-          this.UPDATE_USER_ID({ id: data.data.userId })
-          this.UPDATE_USER_NAME({ name: data.data.username })
+          this.UPDATE_USER_ID({ id: data.data.userNo })
+          this.UPDATE_USER_NAME({ name: data.data.userName })
           this.UPDATE_USER_ROLE_ID({ roleId: data.data.roleIdList && data.data.roleIdList[0] })
           this.UPDATE_USER_ROLE_NAME({ roleName: data.data.roleName })
           this.UPDATE_USER_CHANNEL({ channel: data.data.channel })

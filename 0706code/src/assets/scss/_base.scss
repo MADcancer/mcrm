@@ -304,6 +304,10 @@ img {
         background-color: #78B258;
       }
     }
+    .el-menu-item.is-active {
+      color: #fff;
+      background-color: #78B258;
+    }
   }
   &__menu-icon {
     width: 24px;
@@ -348,7 +352,7 @@ img {
       }
     }
     > .el-tabs__content {
-      padding: 0 36px;
+      padding: 0 24px;
       > .site-tabs__tools {
         position: fixed;
         top: 100px;
