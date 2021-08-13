@@ -15,7 +15,7 @@ module.exports = {
     proxyTable: devEnv.OPEN_PROXY === false ? {} : {
       '/proxyApi': {
         // target: 'https://poiptt.szbank.net/msUat1',
-        target: 'https://poiptt.szbank.net/mcrm',
+        target: 'https://poiptt.szbank.net/fcrm',
         // target: 'https://poiptt.szbank.net/msUat2',
         // target: 'http://39.100.207.76:9999/madp-edas',
         changeOrigin: true,

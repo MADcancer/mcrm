@@ -115,7 +115,7 @@
 /* 整个滚动条 */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 100%;
+  height: 8px;
 }
 
 /* 滚动条竖向滑块 */
@@ -147,6 +147,7 @@
 }
 
 .scroll-body {
+  overflow-x: hidden;
   overflow-y: auto;
 }
 

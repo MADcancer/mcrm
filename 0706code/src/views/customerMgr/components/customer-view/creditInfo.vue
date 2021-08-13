@@ -227,6 +227,7 @@ export default {
       .left {
         flex: 3;
         margin-top: 30px;
+        min-width: 400px;
         .credit-one {
           width: 120px;
           height: 40px;
@@ -253,8 +254,7 @@ export default {
         .tree-divider {
           width:255px;
           height:37px;
-          border:1px solid #dddddd;
-          border-bottom:none;
+          border-top:1px solid #dddddd;
           margin:0 auto;
           position: relative;
           .tree-left {
@@ -268,6 +268,15 @@ export default {
             display: flex;
             flex-direction: column;
             border: 1px solid #dddddd;
+            &:after {
+              content: '';
+              position: absolute;
+              height: 37px;
+              width: 1px;
+              background: #dddddd;
+              top: -37px;
+              left: calc(50% - 2px);
+            }
           }
           .tree-right {
             position: absolute;
@@ -280,11 +289,21 @@ export default {
             display: flex;
             flex-direction: column;
             border: 1px solid #dddddd;
+            &:after {
+              content: '';
+              position: absolute;
+              height: 37px;
+              width: 1px;
+              background: #dddddd;
+              top: -37px;
+              left: calc(50% + 2px);
+            }
           }
         }
       }
       .right {
         flex: 5;
+        overflow: hidden;
       }
     }
   }
