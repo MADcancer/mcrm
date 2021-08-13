@@ -120,7 +120,7 @@ export default {
             return console.error('未能找到可用tab标签页！')
           }
         }
-        this.menuNavActiveName = tab.id + '-' +tab.menuId
+        this.menuNavActiveName = tab.id + '-' + tab.menuId
         this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
       }
     },

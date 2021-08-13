@@ -37,7 +37,9 @@ import * as crmscore from './modules/crm/score'
 import * as engine from './modules/engine'
 import * as coupon from './modules/coupon'
 import * as cockpit from './modules/cockpit'
+import * as workbench from './modules/workbench'
 export default {
+  workbench,  // 工作台
   common,     // 公共
   user,       // 管理员管理
   role,       // 角色管理
