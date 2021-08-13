@@ -73,7 +73,7 @@ export default {
   },
   created() {
     this.getUserInfo()
-    // this.init()
+    this.init()
   },
   mounted() {
     this.resetDocumentClientHeight()

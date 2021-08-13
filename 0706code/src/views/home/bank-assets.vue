@@ -66,7 +66,7 @@ export default {
         },
         legend: {
           top: 'middle',
-          left: 410,
+          right: 20,
           icon: 'circle',
           orient: 'vertical',
         },

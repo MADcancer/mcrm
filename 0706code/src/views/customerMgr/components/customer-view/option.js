@@ -1,6 +1,16 @@
 import * as echarts from 'echarts'
+import filters from '../../../../filters'
 
-export default function getBalanceOptions(total) {
+export default function getBalanceOptions(data) {
+  let dataArray = []
+  if (data.data) {
+    for (const item of data.data) {
+      dataArray.push({
+        name: item.busiName,
+        value: item.amt
+      })
+    }
+  }
   let option = {
     tooltip: {
       trigger: 'item'
@@ -27,13 +37,13 @@ export default function getBalanceOptions(total) {
         }
       },
       formatter: function(name) {
-        let str = '{a|' + name + '}' + '111111'
+        let str = '{a|' + name + '}' + filters.moneyFormat(dataArray.find(e => e.name === name).value)
         return str
-      }
+      },
+      selectedMode: false
     },
     series: [
       {
-        name: '访问来源',
         type: 'pie',
         radius: ['50%', '70%'],
         center: ['30%', '50%'],
@@ -43,11 +53,11 @@ export default function getBalanceOptions(total) {
             show: true,
             position: 'center',
             color: '#4c4a4a',
-            formatter: '{total|' + total + '}亿元' + '\n\r' + '{active|共发布活动}',
+            formatter: '{total|' + filters.moneyFormat(data.total) + '}亿元' + '\n\r' + '{active|当前业务余额}',
             rich: {
               total: {
                 fontFamily: 'DINAlternate-Bold, DINAlternate',
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: 'bold',
                 color: '#333333'
               },
@@ -66,20 +76,47 @@ export default function getBalanceOptions(total) {
         labelLine: {
           show: false
         },
-        data: [
-          {value: 83123.12, name: '票据转贴现'},
-          {value: 23234.45, name: '票据资管'},
-          {value: 6453.52, name: '同业理财'},
-          {value: 4453.52, name: '存放同业'},
-          {value: 453.52, name: '其它'}
-        ]
+        data: dataArray
       }
     ]
   }
   return option
 }
 
-export function getLinesOptions(total) {
+export function getLinesOptions(data) {
+  let dataArray = []
+  let legendData = [
+    {
+      name: '已用额度',
+      type: '2001',
+      icon: 'circle'
+    }, {
+      name: '剩余额度',
+      type: '2002',
+      icon: 'circle'
+    }, {
+      name: '冻结额度',
+      type: '2003',
+      icon: 'circle'
+    }, {
+      name: '累计占用',
+      type: '2004',
+      icon: 'none'
+    }
+  ]
+  if (data.data) {
+    let arr = data.data.sort((a, b) => JSON.parse(a.busiType) - JSON.parse(b.busiType))
+    for (const item of arr) {
+      dataArray.push({
+        name: item.busiName,
+        value: item.amt,
+        busiType: item.busiType
+      })
+    }
+    for (const item of legendData) {
+      item.name = data.data.find(e => e.busiType === item.type).busiName
+    }
+  }
   let option = {
     tooltip: {
       trigger: 'item'
@@ -105,10 +142,16 @@ export function getLinesOptions(total) {
           }
         }
       },
+      // '已用额度', '剩余额度', '冻结额度', '累计占用'
+      data: legendData,
       formatter: function(name) {
-        let str = '{a|' + name + '}' + '111111'
+        let str = '{a|' + name + '}' + filters.moneyFormat(dataArray.find(e => e.name === name).value)
         return str
-      }
+      },
+      selected: {
+        '累计占用': false
+      },
+      selectedMode: false
     },
     series: [
       {
@@ -121,11 +164,11 @@ export function getLinesOptions(total) {
             show: true,
             position: 'center',
             color: '#4c4a4a',
-            formatter: '{total|' + total + '}亿元' + '\n\r' + '{active|共发布活动}',
+            formatter: '{total|' + (dataArray.find(e => e.busiType === '2001').value / data.total * 100).toFixed(0) + '%' + '}' + '\n\r' + '{active|已用}',
             rich: {
               total: {
                 fontFamily: 'DINAlternate-Bold, DINAlternate',
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: 'bold',
                 color: '#333333'
               },
@@ -144,13 +187,7 @@ export function getLinesOptions(total) {
         labelLine: {
           show: false
         },
-        data: [
-          {value: 83123.12, name: '票据转贴现'},
-          {value: 23234.45, name: '票据资管'},
-          {value: 6453.52, name: '同业理财'},
-          {value: 4453.52, name: '存放同业'},
-          {value: 453.52, name: '其它'}
-        ]
+        data: dataArray
       }
     ]
   }
@@ -158,7 +195,6 @@ export function getLinesOptions(total) {
 }
 
 export function getCreditOptions() {
-  let total = '65%'
   let option = {
     tooltip: {
       trigger: 'item',
@@ -272,7 +308,9 @@ export function getCreditHistoryOptions() {
   return option
 }
 
-export function getAssets() {
+export function getAssets(data) {
+  let y = data.aumRank / data.custCount * 3
+  let x = data.prodRank / data.custCount * 3
   let option = {
     grid: [
       {left: '7%', top: '10%', width: '38%', height: '38%'},
@@ -283,8 +321,9 @@ export function getAssets() {
         name: '产品覆盖度',
         nameTextStyle: {
           color: '#333333',
-          verticalAlign: 'top'
+          padding: [0, 0, 0, 90]
         },
+        nameLocation: 'center',
         min: 0,
         max: 3.3,
         gridIndex: 0,
@@ -345,7 +384,7 @@ export function getAssets() {
         coordinateSystem: 'cartesian2d',
         xAxisIndex: 0,
         yAxisIndex: 0,
-        data: [[1.5, 1.5, 3]]
+        data: [[x, y, 3]]
       },
       {
         name: 'II',

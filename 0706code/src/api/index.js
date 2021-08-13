@@ -37,6 +37,7 @@ import * as crmscore from './modules/crm/score'
 import * as engine from './modules/engine'
 import * as coupon from './modules/coupon'
 import * as cockpit from './modules/cockpit'
+import * as customerView from './modules/custmgr/customerView'
 import * as workbench from './modules/workbench'
 export default {
   workbench,  // 工作台
@@ -79,6 +80,7 @@ export default {
   custgrey,      // 灰度名单
   voteact,      // 票选活动
   supplierEmail,   // 业务邮箱维护
-  cockpit //驾驶舱
+  cockpit, //驾驶舱
+  customerView // 客户360视图
   // songxiongxiong END
 }

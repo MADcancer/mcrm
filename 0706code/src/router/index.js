@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import customer from '@/views/customer'
+import customer from '@/views/customerMgr'
 
 // 开发环境不使用懒加载, 因为懒加载页面太多的话会造成webpack热更新太慢, 所以只有开发环境使用懒加载
 const _import = require('./import-' + process.env.NODE_ENV)

@@ -29,6 +29,11 @@ export default {
     }
   },
   methods: {
+    getProfitReport() {
+      API.cockpit.getprofitreport().then(({ data }) => {
+        console.log(data.data)
+      })
+    },
     initRevenueEcharts() {
       let revenueChart = null
       revenueChart = echarts.init(document.getElementById('revenueEcharts'))
@@ -49,7 +54,7 @@ export default {
           },
         },
         legend: {
-          data: ['营收指标', '营收完成', '利润指标', '利润完成'],
+          data: ['利润指标', '利润完成'],
           selectedMode: false,
           top: 'bottom',
         },
@@ -66,41 +71,36 @@ export default {
             axisTick: false,
             data: this.xdata,
           },
-          {
-            type: 'category',
-            show: false,
-            data: this.xdata,
-          },
         ],
         yAxis: {
           type: 'value',
         },
         series: [
           {
-            name: '营收指标',
+            name: '利润指标',
             type: 'bar',
             barWidth: 10,
-            xAxisIndex: 1,
+            barGap: '-100%',
             itemStyle: {
               color: '#e6efdd',
               borderRadius: [5, 5, 0, 0],
             },
             data: [1907, 1511, 1315, 1100],
           },
+          // {
+          //   name: '利润指标',
+          //   type: 'bar',
+          //   barGap: '100%',
+          //   barWidth: 10,
+          //   xAxisIndex: 1,
+          //   itemStyle: {
+          //     color: '#fef3d9',
+          //     borderRadius: [5, 5, 0, 0],
+          //   },
+          //   data: [1800, 1417, 1149, 1004],
+          // },
           {
-            name: '利润指标',
-            type: 'bar',
-            barGap: '100%',
-            barWidth: 10,
-            xAxisIndex: 1,
-            itemStyle: {
-              color: '#fef3d9',
-              borderRadius: [5, 5, 0, 0],
-            },
-            data: [1800, 1417, 1149, 1004],
-          },
-          {
-            name: '营收完成',
+            name: '利润完成',
             type: 'bar',
             zlevel: 1,
             barWidth: 10,
@@ -110,18 +110,18 @@ export default {
             },
             data: [1807, 1411, 1215, 1000],
           },
-          {
-            name: '利润完成',
-            type: 'bar',
-            zlevel: 1,
-            barGap: '100%',
-            barWidth: 10,
-            itemStyle: {
-              color: '#f9c446',
-              borderRadius: [5, 5, 0, 0],
-            },
-            data: [1700, 1317, 1049, 904],
-          },
+          // {
+          //   name: '利润完成',
+          //   type: 'bar',
+          //   zlevel: 1,
+          //   barGap: '100%',
+          //   barWidth: 10,
+          //   itemStyle: {
+          //     color: '#f9c446',
+          //     borderRadius: [5, 5, 0, 0],
+          //   },
+          //   data: [1700, 1317, 1049, 904],
+          // },
         ],
       }
       revenueChart.setOption(this.optionRevenue, true)
@@ -149,6 +149,7 @@ export default {
     },
   },
   mounted() {
+    this.getProfitReport()
     this.initRevenueEcharts()
   },
 }

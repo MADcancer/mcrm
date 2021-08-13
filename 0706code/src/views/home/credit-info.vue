@@ -28,18 +28,39 @@ export default {
       custType: [],
       creditLimit: [],
       creditUsed: [],
+      timeData: [],
+      limitChartData: [],
+      usedChartData: [],
+      timeSpan: ''
     }
   },
   methods: {
     getCreditInfo() {
       API.cockpit.creditinfo().then(({ data }) => {
-        if (data && data.code === 0) {  
+        if (data && data.code === 0) {
           for (const item of data.data) {
             this.custType.push(item.custType)
             this.creditLimit.push(item.creditLimitSum)
             this.creditUsed.push(item.creditUseSum)
           }
           this.initCreditBarEcharts()
+        }
+      })
+    },
+    getCreditChartData() {
+      const param = {
+        custType: '',
+        timeSpan: this.timeSpan
+      }
+      API.cockpit.wholecredit(param).then(({ data }) => {
+        if (data && data.code === 0) {
+          for (const item of data.data) {
+            this.timeData.push(item.timeNode.substr(0,4) + '/' + item.timeNode.substr(4))
+            this.limitChartData.push(item.creditLimitSum)
+            this.usedChartData.push(item.creditUseSum)
+            console.log(data.data)
+          }
+          this.initCreditLineEcharts()
         }
       })
     },
@@ -150,7 +171,8 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['2021-1', '2021-2', '2021-3', '2021-4', '2021-5', '2021-6'],
+          // data: ['2021-1'],
+          data: this.timeData
         },
         yAxis: {
           type: 'value',
@@ -164,7 +186,7 @@ export default {
             itemStyle: {
               color: '#78B258',
             },
-            data: [220, 182, 191, 234, 290, 330],
+            data: this.limitChartData,
           },
           {
             name: '用信',
@@ -174,16 +196,21 @@ export default {
             itemStyle: {
               color: '#f9c446',
             },
-            data: [120, 132, 101, 134, 90, 230],
+            data: this.usedChartData,
           },
         ],
       }
       creditLineChart.setOption(this.optionCreditLine, true)
     },
-    changeQuantum(val) {},
+    changeQuantum(val) {
+      console.log(val)
+      this.timeSpan = val
+      this.getCreditChartData()
+    },
   },
   mounted() {
     this.getCreditInfo()
+    this.getCreditChartData()
     // this.initCreditBarEcharts() //加载授权信息柱状图
     this.initCreditLineEcharts() //加载收益趋势图
   },

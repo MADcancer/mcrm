@@ -80,7 +80,6 @@ export default {
           }
         })
         .then(() => {
-          console.log(request)
           API.cockpit.getCustInfoByPro(request).then(({ data }) => {
             if (data && data.code === 0) {
               this.tableData = data.data

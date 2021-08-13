@@ -72,7 +72,7 @@ export default {
       API.cockpit.getDept().then(({ data }) => {
         if (data && data.code === 0) {
           for (const item of data.data) {
-            this.deptOptions.push({ value: item.depCode, label: item.depName })
+            this.deptOptions.push({ value: item.deptCode, label: item.deptName })
           }
         }
       })

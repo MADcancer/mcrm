@@ -65,6 +65,16 @@ export function getAssetDist() {
   })
 }
 /**
+ * 查询授信业务趋势图
+ */
+export function wholecredit(params) {
+  return request({
+    url: requestUrl('hp/creditlimitsum/wholecredit'),
+    method: 'get',
+    params: requestParam(params, 'get')
+  })
+}
+/**
  * 查询客户资产TOP
  */
  export function custAssetTop(params) {
@@ -72,6 +82,15 @@ export function getAssetDist() {
     url: requestUrl('/hp/custassetscale/custassettop'),
     method: 'get',
     params: requestParam(params, 'get')
+  })
+}
+/**
+ * 查询营收报表
+ */
+ export function getprofitreport() {
+  return request({
+    url: requestUrl('/hp/checkprofit/getprofitreport'),
+    method: 'get',
   })
 }
 /**

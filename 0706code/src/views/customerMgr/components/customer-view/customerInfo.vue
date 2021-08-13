@@ -27,7 +27,7 @@
       <div class="row">
         <div class="col">
           <div class="label-cell">客户编号</div>
-          <div class="content-cell"></div>
+          <div class="content-cell">{{customerDetail.custNo}}</div>
         </div>
         <div class="col">
           <div class="label-cell">人行划分范围</div>
@@ -97,7 +97,7 @@
       <div class="row">
         <div class="col">
           <div class="label-cell">注册资本（元）</div>
-          <div class="content-cell"></div>
+          <div class="content-cell">{{customerDetail.regCapi}}</div>
         </div>
       </div>
       <div class="row">
@@ -228,27 +228,27 @@
     <div class="customer-table">
       <div class="title">评级信息</div>
       <el-table
-        :data="tableData"
+        :data="custGradeList"
         style="width: 100%"
         :header-row-class-name="'self-header'"
         :row-class-name="tableRowClassName">
         <el-table-column
-          prop="date"
+          prop="gradeDt"
           label="评级日期"
           width="180">
         </el-table-column>
         <el-table-column
-          prop="method"
-          label="评级方式"
+          prop="gradeResult"
+          label="评级结果"
           width="180">
         </el-table-column>
         <el-table-column
-          prop="institution"
+          prop="gradeOrg"
           label="评级机构">
         </el-table-column>
         <el-table-column
-          prop="result"
-          label="评级结果">
+          prop="gradeRemark"
+          label="评级原因">
         </el-table-column>
       </el-table>
     </div>
@@ -256,39 +256,52 @@
 </template>
 
 <script>
+import api from '@/api'
+import { Constants } from '../../constants'
+
 export default {
   data() {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        method: 'xxxx',
-        institution: 'xxxxx',
-        result: 'xxxxx'
-      }, {
-        date: '2016-05-02',
-        method: 'xxxx',
-        institution: 'xxxxx',
-        result: 'xxxxx'
-      }, {
-        date: '2016-05-02',
-        method: 'xxxx',
-        institution: 'xxxxx',
-        result: 'xxxxx'
-      }, {
-        date: '2016-05-02',
-        method: 'xxxx',
-        institution: 'xxxxx',
-        result: 'xxxxx'
-      }]
+      custGradeList: [],
+      customerDetail: {}
     }
   },
   methods: {
+    getCustomerDetail() {
+      let params = {
+        socCode: '10000'
+      }
+      api.customerView.getCustomerDetail(params).then(({data}) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          console.log('getCustomerDetail', data)
+          this.customerDetail = data.data || {}
+        }
+      })
+    },
+    getCustGradeList() {
+      let params = {
+        current: 1,
+        deptCode: '',
+        size: 1000,
+        socCode: '10000'
+      }
+      api.customerView.getCustGradeList(params).then(({data}) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          console.log('CustGradeList', data)
+          this.custGradeList = data.data.records
+        }
+      })
+    },
     tableRowClassName({row, rowIndex}) {
       if (rowIndex % 2) {
         return 'light-row self-row'
       }
       return 'self-row'
     }
+  },
+  created() {
+    this.getCustGradeList()
+    this.getCustomerDetail()
   }
 }
 </script>
