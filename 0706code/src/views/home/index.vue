@@ -7,9 +7,9 @@
       <div slot="header" class="clearfix" style="position: relative">
         <span class="cardTitle">智能搜索</span>
       </div>
-      <div>
+      <div style="display: inline-block">
         <el-select
-          v-model="value"
+          v-model="listValue"
           filterable
           remote
           reserve-keyword
@@ -26,6 +26,16 @@
           >
           </el-option>
         </el-select>
+      </div>
+      <div style="display: inline-block; margin-left: 5px">
+        <el-radio-group
+          v-model="originRadio"
+          @change="radioChange($event)"
+          :disabled="radioDisabled"
+        >
+          <el-radio label="1">客户</el-radio>
+          <el-radio label="2">产品</el-radio>
+        </el-radio-group>
       </div>
     </el-card> -->
     <div v-for="item in modelData" :key="item">
@@ -54,12 +64,6 @@ import revenueReport from './revenue-report'
 import usedCredit from './used-credit'
 import modelSelecter from './model-selecter'
 export default {
-  computed: {
-    // 是否是管理员
-    isAdmin() {
-      return this.$store.state.user.roleId.toString().indexOf('03') !== -1
-    },
-  },
   // watch: {
   //   $route: {
   //     handler() {
@@ -73,9 +77,10 @@ export default {
   data() {
     return {
       options: [],
-      value: [],
+      listValue: [],
       list: [],
       loading: false,
+      disabled: false,
       states: [
         'Alabama',
         'Alaska',
@@ -137,7 +142,17 @@ export default {
         'revenueReport',
         'usedCredit',
       ],
+      originRadio: '1',
     }
+  },
+  computed: {
+    // 是否是管理员
+    isAdmin() {
+      return this.$store.state.user.roleId.toString().indexOf('03') !== -1
+    },
+    radioDisabled() {
+      return this.disabled
+    },
   },
   components: {
     dataStatistics,
@@ -147,10 +162,11 @@ export default {
     guestTop,
     revenueReport,
     usedCredit,
-    modelSelecter
+    modelSelecter,
   },
   methods: {
     remoteMethod(query) {
+      //智能搜索
       if (query !== '') {
         this.loading = true
         setTimeout(() => {
@@ -163,6 +179,17 @@ export default {
         this.options = []
       }
     },
+    radioChange(event) {
+      console.log(event)
+      this.options = []
+      this.listValue = ''
+      this.disabled = true
+      if (event === '1') {
+        this.getAllCustList()
+      } else {
+        this.getAllProdList()
+      }
+    },
     searchChangeHandle(val) {
       console.log(val)
     },
@@ -170,6 +197,34 @@ export default {
       // 获取页面模块
       this.modelData = []
       this.modelData = this.$refs.modelSelect.selectedList
+    },
+    getAllCustList() {
+      API.cockpit.getAllCustList().then(({ data }) => {
+        if (data && data.code === 0) {
+          this.custName = []
+          for (const item of data.data) {
+            this.custName.push(item.custName)
+          }
+          this.list = this.custName.map((item) => {
+            return { value: item, label: item }
+          })
+        }
+        this.disabled = false
+      })
+    },
+    getAllProdList() {
+      API.cockpit.getAllProdList().then(({ data }) => {
+        if (data && data.code === 0) {
+          this.prodName = []
+          for (const item of data.data) {
+            this.prodName.push(item.prodName)
+          }
+          this.list = this.prodName.map((item) => {
+            return { value: item, label: item }
+          })
+        }
+        this.disabled = false
+      })
     },
     modelSelectHandle() {
       this.$nextTick(() => {
@@ -179,9 +234,10 @@ export default {
   },
   mounted() {
     this.getModelList()
-    this.list = this.states.map((item) => {
-      return { value: item, label: item }
-    })
+    this.getAllCustList()
+    // this.list = this.states.map((item) => {
+    //   return { value: item, label: item }
+    // })
   },
   created() {},
 }

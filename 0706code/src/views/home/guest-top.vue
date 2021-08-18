@@ -18,15 +18,32 @@ export default {
   data() {
     return {
       top: 10,
+      custName: [],
+      assetBal: [],
+      tradeAmt: [],
+      tradeNum: []
     }
   },
   methods: {
     getCustAssetTop() {
       const param = {
-        quanlity: this.top,
+        quantity: this.top,
       }
+      this.custName = [],
+      this.assetBal = [],
+      this.tradeAmt = [],
+      this.tradeNum = []
       API.cockpit.custAssetTop(param).then(({ data }) => {
-        console.log(data.data)
+        if (data && data.code === 0) {
+          console.log(data.data)
+          for (const item of data.data) {
+            this.custName.push(item.custName)
+            this.assetBal.push(item.assetBal)
+            this.tradeAmt.push(item.tradeAmt)
+            this.tradeNum.push(item.tradeNum)
+          }
+          this.initGuestEcharts()
+        }
       })
     },
     initGuestEcharts() {
@@ -65,18 +82,7 @@ export default {
             interval: 0,
             rotate: 45,
           },
-          data: [
-            '无锡康雅',
-            '无锡康雅',
-            '无锡康雅',
-            '无锡康雅',
-            '无锡康雅有限公司',
-            '无锡康雅司',
-            '无锡康雅有限公司',
-            '无锡康雅',
-            '无锡康雅有公司',
-            '无锡康雅有限公司',
-          ],
+          data: this.custName,
         },
         yAxis: {
           type: 'value',
@@ -89,7 +95,7 @@ export default {
             itemStyle: {
               borderRadius: [5, 5, 0, 0],
             },
-            data: [1807, 1411, 1215, 1000, 800, 600, 400, 200, 200, 150],
+            data: this.assetBal,
           },
           {
             name: '交易量',
@@ -98,7 +104,7 @@ export default {
             itemStyle: {
               borderRadius: [5, 5, 0, 0],
             },
-            data: [1700, 1317, 1049, 904, 489, 230, 180, 104, 90, 89],
+            data: this.tradeAmt,
           },
           {
             name: '交易笔数',
@@ -107,7 +113,7 @@ export default {
             itemStyle: {
               borderRadius: [5, 5, 0, 0],
             },
-            data: [1807, 1411, 1215, 1000, 800, 600, 400, 200, 200, 150],
+            data: this.tradeNum,
           },
         ],
         // dataZoom: {
@@ -132,7 +138,7 @@ export default {
   },
   mounted() {
     this.getCustAssetTop()
-    this.initGuestEcharts() //加载客户TOP10
+    // this.initGuestEcharts() //加载客户TOP10
   },
 }
 </script>

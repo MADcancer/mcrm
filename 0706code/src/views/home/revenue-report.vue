@@ -9,6 +9,7 @@
         active-text="年度"
         inactive-text="季度"
         style="float: right; padding: 3px 0"
+        :disabled="switchDisabled"
         @change="changeStatus($event)"
       >
       </el-switch>
@@ -25,13 +26,30 @@ export default {
   data() {
     return {
       value2: false,
+      disabled: false,
       xdata: ['第一季度', '第二季度', '第三季度', '第四季度'],
+      profitIdx: [],
+      profitAct: []
     }
+  },
+  computed: {
+    switchDisabled() {
+      return this.disabled
+    },
   },
   methods: {
     getProfitReport() {
+      this.profitIdx = []
+      this.profitAct = []
       API.cockpit.getprofitreport().then(({ data }) => {
-        console.log(data.data)
+        if (data && data.code ===0) {
+          for (const item of data.data) {
+            this.profitIdx.push(item.profitIdx)
+            this.profitAct.push(item.profitAct)
+          }
+          this.initRevenueEcharts()
+        }
+        this.disabled = false
       })
     },
     initRevenueEcharts() {
@@ -85,7 +103,7 @@ export default {
               color: '#e6efdd',
               borderRadius: [5, 5, 0, 0],
             },
-            data: [1907, 1511, 1315, 1100],
+            data: this.profitIdx,
           },
           // {
           //   name: '利润指标',
@@ -108,7 +126,7 @@ export default {
               color: '#85b05b',
               borderRadius: [5, 5, 0, 0],
             },
-            data: [1807, 1411, 1215, 1000],
+            data: this.profitAct,
           },
           // {
           //   name: '利润完成',
@@ -127,6 +145,7 @@ export default {
       revenueChart.setOption(this.optionRevenue, true)
     },
     changeStatus($event) {
+      this.disabled = true
       if ($event) {
         this.xdata = [
           '一月',
@@ -145,12 +164,11 @@ export default {
       } else {
         this.xdata = ['第一季度', '第二季度', '第三季度', '第四季度']
       }
-      this.initRevenueEcharts()
+      this.getProfitReport()
     },
   },
   mounted() {
     this.getProfitReport()
-    this.initRevenueEcharts()
   },
 }
 </script>

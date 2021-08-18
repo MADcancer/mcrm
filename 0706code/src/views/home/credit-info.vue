@@ -31,7 +31,7 @@ export default {
       timeData: [],
       limitChartData: [],
       usedChartData: [],
-      timeSpan: ''
+      timeSpan: 6
     }
   },
   methods: {
@@ -52,6 +52,9 @@ export default {
         custType: '',
         timeSpan: this.timeSpan
       }
+      this.timeData = []
+      this.limitChartData = []
+      this.usedChartData = []
       API.cockpit.wholecredit(param).then(({ data }) => {
         if (data && data.code === 0) {
           for (const item of data.data) {

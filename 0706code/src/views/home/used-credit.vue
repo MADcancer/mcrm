@@ -7,7 +7,11 @@
       >
     </div>
     <div id="switchChartButton">
-      <el-radio-group v-model="originRadio" @change="radioChange">
+      <el-radio-group
+        v-model="originRadio"
+        @change="radioChange"
+        :disabled="buttonDisabled"
+      >
         <el-radio-button label="1">授信使用率</el-radio-button>
         <el-radio-button label="2">授信使用量</el-radio-button>
       </el-radio-group>
@@ -27,74 +31,64 @@ import * as echarts from 'echarts'
 export default {
   data() {
     return {
+      dimension: '1',
+      quantity: 10,
+      disabled: false,
       originRadio: '1',
       newStyle: 'height: 500px',
       switchMore: false,
-      usedData: [
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-        '无锡公司',
-      ],
+      custName: [],
+      usedRate: [],
+      creditUse: [],
+      creditLimit: [],
     }
   },
+  computed: {
+    buttonDisabled() {
+      return this.disabled
+    },
+  },
   methods: {
-    getMoreCreditTop() {
+    getMoreCreditTop() { //查看更多
       if (this.switchMore) {
         this.switchMore = false
         this.newStyle = 'height:500px'
-        this.usedData = [
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-        ]
+        this.quantity = 10
       } else {
         this.switchMore = true
         this.newStyle = 'height:850px'
-        this.usedData = [
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-          '无锡公司',
-        ]
+        this.quantity = 20
       }
-      this.initUsedEcharts()
+      this.getCustCreditTop()
     },
-    radioChange(val) {
-      console.log(val)
-      this.param = '123'
-      this.initUsedEcharts()
+    radioChange(val) { //切换使用率使用量
+      this.disabled = true
+      this.dimension = val
+      this.getCustCreditTop()
     },
-    initUsedEcharts() {
+    getCustCreditTop() {
+      const param = {
+        dimension: this.dimension,
+        quantity: this.quantity,
+      }
+      this.custName = []
+      this.usedRate = []
+      this.creditUse = []
+      this.creditLimit = []
+      API.cockpit.custcredittop(param).then(({ data }) => {
+        if (data && data.code === 0) {
+          for (const item of data.data) {
+            this.custName.push(item.custName)
+            this.usedRate.push(item.usedRate)
+            this.creditUse.push(item.creditUse)
+            this.creditLimit.push(item.creditLimit)
+          }
+          this.initUsedEcharts()
+        }
+        this.disabled = false
+      })
+    },
+    initUsedEcharts() { //加载授信使用图
       let usedCreditChart = null
       usedCreditChart = echarts.init(
         document.getElementById('usedCreditEcharts')
@@ -123,7 +117,7 @@ export default {
           axisTick: {
             show: false,
           },
-          data: this.usedData,
+          data: this.custName,
         },
         series: [
           {
@@ -140,16 +134,16 @@ export default {
                   position: 'right',
                   offset: [0, -15],
                   formatter: (param) => {
-                    return this.param
+                    if (this.dimension === '1') {
+                      for (const item of this.usedRate) {
+                        return item * 100 + '%'
+                      }
+                    }
                   },
                 },
               },
             },
-            data: [
-              31744, 29034, 23489, 18203, 10000, 31744, 29034, 23489, 18203,
-              10000, 31744, 29034, 23489, 18203, 10000, 31744, 29034, 23489,
-              18203, 10000,
-            ],
+            data: this.creditUse,
           },
           {
             name: '授信额度',
@@ -166,11 +160,7 @@ export default {
                 },
               },
             },
-            data: [
-              35000, 32000, 29000, 26000, 12000, 35000, 32000, 29000, 26000,
-              12000, 35000, 32000, 29000, 26000, 12000, 35000, 32000, 29000,
-              26000, 12000,
-            ],
+            data: this.creditLimit,
           },
         ],
       }
@@ -184,7 +174,7 @@ export default {
     },
   },
   mounted() {
-      this.initUsedEcharts()
+    this.getCustCreditTop()
   },
 }
 </script>

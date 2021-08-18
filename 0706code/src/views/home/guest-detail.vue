@@ -39,29 +39,7 @@ export default {
   data() {
     return {
       visible: false,
-      tableData: [
-        {
-          assetBal: 0,
-          custName: '123',
-          custNo: '123',
-          custType: '123',
-          debtBal: 0,
-          isFocus: '是',
-          proivince: '',
-          socCode: '123',
-        },
-        {
-          assetBal: 0,
-          custCount: '',
-          custName: '123',
-          custNo: '123',
-          custType: '123',
-          debtBal: 0,
-          isFocus: '否',
-          proivince: '',
-          socCode: '123',
-        },
-      ],
+      tableData: [],
     }
   },
   methods: {
@@ -71,6 +49,7 @@ export default {
         roleId: '',
         userNo: '',
       }
+      this.tableData = []
       API.user
         .info()
         .then(({ data }) => {

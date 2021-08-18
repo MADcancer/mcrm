@@ -8,6 +8,24 @@ import request from '../request'
 import requestUrl from '../requestUrl'
 import requestParam from '../requestParam'
 /**
+ * 智能搜索客户
+ */
+export function getAllCustList() {
+  return request({
+    url: requestUrl('/cm/custInfo/getAllCustList'),
+    method: 'get',
+  })
+}
+/**
+ * 智能搜索产品
+ */
+ export function getAllProdList() {
+  return request({
+    url: requestUrl('/pm/prodInfo/getAllProdList'),
+    method: 'get',
+  })
+}
+/**
  * 查询一级部门
  */
 export function getDept() {
@@ -91,6 +109,16 @@ export function wholecredit(params) {
   return request({
     url: requestUrl('/hp/checkprofit/getprofitreport'),
     method: 'get',
+  })
+}
+/**
+ * 查询授信使用
+ */
+export function custcredittop(params) {
+  return request({
+    url: requestUrl('/hp/creditlimitsum/custcredittop'),
+    method: 'get',
+    params: requestParam(params, 'get')
   })
 }
 /**
