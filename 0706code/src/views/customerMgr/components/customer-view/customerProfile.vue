@@ -7,7 +7,7 @@
             业务提醒
             <div class="red-box" v-if="warnList.length">{{warnList.length}}</div>
           </div>
-          <div class="title-right" v-if="warnList.length > 4">更多</div>
+          <div class="title-right" v-if="warnList.length">更多</div>
         </div>
         <ul class="content" v-if="warnList.length">
           <li class="content-item" v-for="item in warnList" :key="item.id">
@@ -26,7 +26,7 @@
             舆情信息
             <div class="red-box" v-if="opinionList.length">{{opinionList.length}}</div>
           </div>
-          <div class="title-right" v-if="opinionList.length > 4">更多</div>
+          <div class="title-right" v-if="opinionList.length">更多</div>
         </div>
         <ul class="content" v-if="opinionList.length">
           <li class="content-item" v-for="item in opinionList" :key="item.id">
@@ -44,7 +44,7 @@
       <div class="title">
         <div class="title-text">重要指标</div>
         <div class="button-group">
-          <div class="button-item" :class="{'active': item.active}" v-for="item in yearsList" @click="yearChange(item)">{{item.value}}</div>
+          <div class="button-item" :class="{'active': item.active}" v-for="(item, index) in yearsList" :key="index" @click="yearChange(item)">{{item.value}}</div>
         </div>
       </div>
       <div class="content-subject">
@@ -94,14 +94,14 @@
             </div>
             <div class="card-item">
               <div class="card-top">
-                <div class="number-text">{{custContribute.transNum}}</div>
+                <div class="number-text">{{custContribute.transNum | moneyFormat}}</div>
 <!--                <div class="trend">+0.2</div>-->
               </div>
               <div class="card-bottom">交易笔数</div>
             </div>
             <div class="card-item">
               <div class="card-top">
-                <div class="number-text">{{custContribute.usebAmt}}</div>
+                <div class="number-text">{{custContribute.usebAmt | moneyFormat}}</div>
 <!--                <div class="trend">+0.2</div>-->
               </div>
               <div class="card-bottom">授信占用</div>
@@ -121,13 +121,13 @@
       <div class="time-content">
         <div class="timer-x" :style="{width: timeLineWidth}"></div>
         <div class="timer-box">
-          <div class="timer-item" v-for="item in custCooperation">
+          <div class="timer-item" v-for="item in custCooperation" :key="item.id">
             <div class="timer-node"></div>
             <div class="timer-text" :data-date="item.dataDt">
-              <span>业务余额: {{item.aum}}</span>
-              <span>授信额度: {{item.creditAmt}}</span>
-              <span>持有产品数: {{item.prodCount}}</span>
-              <span>用信额度: {{item.usebAmt}}</span>
+              <span>业务余额: {{item.aum | moneyFormat}}</span>
+              <span>授信额度: {{item.creditAmt | moneyFormat}}</span>
+              <span>持有产品数: {{item.prodCount | moneyFormat}}</span>
+              <span>用信额度: {{item.usebAmt | moneyFormat}}</span>
 <!--              <i class="el-icon-arrow-right"></i>-->
             </div>
           </div>
@@ -143,6 +143,11 @@ import api from '@/api'
 import { Constants } from '../../constants'
 export default {
   computed: {
+  },
+  props: {
+    socCode: {
+      type: String
+    }
   },
   data() {
     return {
@@ -170,7 +175,7 @@ export default {
     },
     getCustWarnInfo() {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         warnUserNo: this.$store.state.user.id
       }
       api.customerView.getCustWarnInfo(params).then(({data}) => {
@@ -182,7 +187,7 @@ export default {
     },
     getOpinionList() {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         userNo: this.$store.state.user.id,
         roleId: this.$store.state.user.roleId
       }
@@ -195,7 +200,7 @@ export default {
     },
     getBusinessInfoYear(callback) {
       let params = {
-        socCode: '10000'
+        socCode: this.socCode
       }
       api.customerView.getBusinessInfoYear(params).then(({data}) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {
@@ -217,7 +222,7 @@ export default {
     },
     getCustContribute() {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         dataDt: this.yearSelected.value
       }
       api.customerView.getCustContribute(params).then(({data}) => {
@@ -232,7 +237,7 @@ export default {
     },
     getBusinessInfoHis(type) {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         dataDt: this.yearSelected.value,
         type: type
       }
@@ -253,7 +258,7 @@ export default {
     },
     getCustCooperation() {
       let params = {
-        socCode: '10000'
+        socCode: this.socCode
       }
       api.customerView.getCustCooperation(params).then(({data}) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {
@@ -272,18 +277,21 @@ export default {
       let chartDom = this.$refs.chartTop
       let myChart = echarts.init(chartDom)
       let option = getBalanceOptions(data)
+      myChart.clear()
       option && myChart.setOption(option)
     },
     getEchartsLinesView(data) {
       let chartDom = this.$refs.chartBottom
       let myChart = echarts.init(chartDom)
       let option = getLinesOptions(data)
+      myChart.clear()
       option && myChart.setOption(option)
     },
     getAssets(data) {
       let chartDom = this.$refs.legend
       let myChart = echarts.init(chartDom)
       let option = getAssets(data)
+      myChart.clear()
       option && myChart.setOption(option)
     },
     yearChange(item) {

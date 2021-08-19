@@ -2,43 +2,32 @@
   <div class="credit-box mt-16">
     <div class="credit-total">
       <div class="title">
-        <div class="title-text">授信总额（元）：20亿</div>
+        <div class="title-text">授信总额（元）：{{creditInfo.creditAmt | moneyFormat}}</div>
       </div>
       <div class="content-container mt-16">
-        <div class="left">
+        <div class="left" :style="{minHeight: minHeight}" v-if="Object.keys(creditInfo).length">
           <div style="margin:0 auto;">
             <div class="credit-one">
-              <span>授信主题A </span>
-              <span>10亿</span>
+              <span>{{creditInfo.busiTypeName}}</span>
+              <span>{{creditInfo.creditAmt | moneyFormat}}</span>
             </div>
           </div>
           <div class="y-divider"></div>
           <!--画一个无底边部的边框-->
-          <div class="tree-divider">
-            <div class="tree-left">
+          <div class="tree-divider" :style="{width: overWidth, marginLeft: creditInfo.list.length > 2 ? '50px' : ''}" v-if="creditInfo.list.length > 1">
+            <div class="tree-box" v-for="(item, index) in creditInfo.list" :style="setPosition(index)">
               <div class="tree-item-title">
-                <span>授信分项1</span>
-                <span>5亿</span>
+                <span>{{item.busiTypeName}}</span>
+                <span>{{item.creditAmt | moneyFormat}}</span>
               </div>
-              <div class="tree-item">业务1</div>
-              <div class="tree-item">业务2</div>
-              <div class="tree-item">业务3</div>
-              <div class="tree-item">业务4</div>
-            </div>
-            <div class="tree-right">
-              <div class="tree-item-title">
-                <span>授信分项2</span>
-                <span>3亿</span>
-              </div>
-              <div class="tree-item">业务5</div>
-              <div class="tree-item">业务6</div>
-              <div class="tree-item">业务7</div>
+              <div class="tree-item" v-for="busItem in item.list">{{ item.busiTypeName }}</div>
             </div>
           </div>
         </div>
+        <div v-else class="left"></div>
         <div class="right">
           <el-table
-            :data="tableData"
+            :data="creditList"
             style="width: 100%"
             :header-row-class-name="'self-header-2'">
             <el-table-column
@@ -47,39 +36,43 @@
               width="50">
             </el-table-column>
             <el-table-column
-              prop="customerNo"
+              prop="custNo"
               label="客户编号"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="customerName"
+              prop="custName"
               label="客户名称"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="creditVarieties"
+              prop="busiTypeName"
               label="授信品种"
               width="100">
             </el-table-column>
             <el-table-column
-              prop="currency"
+              prop="busiCurrency"
               label="币种"
               width="50">
             </el-table-column>
             <el-table-column
-              prop="creditLines"
               label="授信额度（元）">
+              <template slot-scope="scope">
+                <span>{{ scope.row.busiAmt | moneyFormat }}</span>
+              </template>
             </el-table-column>
             <el-table-column
-              prop="creditPeriod"
               label="授信总额度（元）">
+              <template slot-scope="scope">
+                <span>{{ scope.row.creditAmt | moneyFormat }}</span>
+              </template>
             </el-table-column>
             <el-table-column
-              prop="creditPeriod"
+              prop="termMonth"
               label="授信期限（月）">
             </el-table-column>
             <el-table-column
-              prop="date"
+              prop="occurDt"
               label="生效日期">
             </el-table-column>
           </el-table>
@@ -101,40 +94,24 @@
             width="50">
           </el-table-column>
           <el-table-column
-            prop="customerNo"
-            label="客户编号"
-            width="100">
+            prop="custNo"
+            label="客户编号">
           </el-table-column>
           <el-table-column
-            prop="customerName"
-            label="客户名称"
-            width="100">
+            prop="custName"
+            label="客户名称">
           </el-table-column>
           <el-table-column
-            prop="creditVarieties"
-            label="授信品种"
-            width="100">
+            prop="busiAmt"
+            label="用信金额">
           </el-table-column>
           <el-table-column
-            prop="currency"
-            label="币种"
-            width="50">
+            prop="busiCurrency"
+            label="币种">
           </el-table-column>
           <el-table-column
-            prop="creditLines"
-            label="授信额度（元）">
-          </el-table-column>
-          <el-table-column
-            prop="creditPeriod"
-            label="授信总额度（元）">
-          </el-table-column>
-          <el-table-column
-            prop="creditPeriod"
-            label="授信期限（月）">
-          </el-table-column>
-          <el-table-column
-            prop="date"
-            label="生效日期">
+            prop="busiType"
+            label="公贷产品名称">
           </el-table-column>
         </el-table>
       </div>
@@ -143,71 +120,108 @@
 </template>
 
 <script>
+import api from '@/api'
+import { Constants } from '../../constants'
+
 export default {
+  props: {
+    socCode: {
+      type: String
+    }
+  },
   data() {
     return {
-      tableData: [
-        {
-          number: '1',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }, {
-          number: '2',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }, {
-          number: '3',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }, {
-          number: '4',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }, {
-          number: '5',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }, {
-          number: '6',
-          customerNo: 'xxxxxx',
-          customerName: 'xxxxxx',
-          creditVarieties: 'xxxxxx',
-          currency: 'xxx',
-          creditLines: 'xxxxxx',
-          creditPeriod: 'xxxxxx',
-          date: 'xxxxxx'
-        }
-      ]
+      tableData: [],
+      creditInfo: {},
+      overWidth: '255px',
+      minHeight: '',
+      creditList: []
     }
   },
   mounted() {
   },
+  created() {
+    this.getCreditTree()
+    this.getCreditList()
+    this.getCreditListCg()
+  },
   methods: {
+    setPosition(index) {
+      let left = index !== this.creditInfo.list.length - 1 ? (150 * index - 50 + 'px') : ''
+      let right = index === this.creditInfo.list.length - 1 ? '-50px' : ''
+      return {left, right}
+    },
+    getCreditTree() {
+      let params = {
+        creditObj: '1',
+        socCode: this.socCode
+      }
+      api.customerView.getCreditTree(params).then(({ data }) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          console.log('getCreditTree', data)
+          this.creditInfo = data.data[0] || {}
+          if (this.creditInfo.list) {
+            if (this.creditInfo.list.length > 2) {
+              this.overWidth = (this.creditInfo.list.length - 1) * 150 + 'px'
+            }
+            this.minHeight = this.getMinHeight()
+          }
+        }
+      })
+    },
+    getMinHeight() {
+      let heightNum = 0
+      for (const item of this.creditInfo.list) {
+        let number = 40
+        if (item.list) {
+          item.list.forEach(() => {
+            number += 40
+          })
+          heightNum = heightNum > number ? heightNum : number
+        }
+      }
+      return heightNum + 110 + 'px'
+    },
+    getCreditList() {
+      let params = {
+        creditObj: '1',
+        socCode: this.socCode,
+        current: 1,
+        size: 6
+      }
+      this.creditList = []
+      api.customerView.getCreditList(params).then(({ data }) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          console.log('getCreditList', data)
+          if (data.data && Array.isArray(data.data.records)) {
+            data.data.records.forEach((item, index) => {
+              item.number = (data.data.current - 1) * data.data.size + index + 1
+            })
+            this.creditList = data.data.records
+          }
+        }
+      })
+    },
+    getCreditListCg() {
+      let params = {
+        detailType: 1,
+        socCode: this.socCode,
+        current: 1,
+        size: 6
+      }
+      this.creditList = []
+      api.customerView.getCreditListCg(params).then(({ data }) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          console.log('getCreditListCg', data)
+          if (data.data && Array.isArray(data.data.records)) {
+            data.data.records.forEach((item, index) => {
+              item.number = (data.data.current - 1) * data.data.size + index + 1
+            })
+            this.tableData = data.data.records
+          }
+        }
+      })
+    }
   }
 }
 </script>
@@ -217,10 +231,9 @@ export default {
   display: flex;
   flex-direction: column;
   .credit-total {
-    height: 440px;
     box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.06);
     margin: 0 2px 12px 2px;
-    padding: 8px 16px;
+    padding: 8px 16px 40px;
     border-radius: 8px;
     .content-container {
       display: flex;
@@ -228,6 +241,8 @@ export default {
         flex: 3;
         margin-top: 30px;
         min-width: 400px;
+        overflow-x: auto;
+        overflow-y: hidden;
         .credit-one {
           width: 120px;
           height: 40px;
@@ -257,9 +272,8 @@ export default {
           border-top:1px solid #dddddd;
           margin:0 auto;
           position: relative;
-          .tree-left {
+          .tree-box {
             position: absolute;
-            left: -50px;
             top: 36px;
             display: flex;
             border-radius: 6px;
@@ -268,6 +282,7 @@ export default {
             display: flex;
             flex-direction: column;
             border: 1px solid #dddddd;
+            box-sizing: border-box;
             &:after {
               content: '';
               position: absolute;
@@ -275,28 +290,7 @@ export default {
               width: 1px;
               background: #dddddd;
               top: -37px;
-              left: calc(50% - 2px);
-            }
-          }
-          .tree-right {
-            position: absolute;
-            right: -50px;
-            top: 36px;
-            display: flex;
-            border-radius: 6px;
-            line-height: 40px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #dddddd;
-            &:after {
-              content: '';
-              position: absolute;
-              height: 37px;
-              width: 1px;
-              background: #dddddd;
-              top: -37px;
-              left: calc(50% + 2px);
+              left: 50%;
             }
           }
         }

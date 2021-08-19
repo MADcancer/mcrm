@@ -1,3 +1,5 @@
+import moment from 'moment'
+import { isEmpty } from '../utils'
 export default {
   /**
    * 格式化金额
@@ -17,5 +19,11 @@ export default {
     } else {
       return intPartFormat
     }
+  },
+  fomatData(value, fomat = 'YYYY/MM/DD') {
+    return moment(value).format(fomat)
+  },
+  formatValue(value) {
+    return isEmpty(value) ? '-' : value
   }
 }

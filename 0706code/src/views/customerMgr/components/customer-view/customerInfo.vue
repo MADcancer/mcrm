@@ -260,6 +260,11 @@ import api from '@/api'
 import { Constants } from '../../constants'
 
 export default {
+  props: {
+    socCode: {
+      type: String
+    }
+  },
   data() {
     return {
       custGradeList: [],
@@ -269,7 +274,7 @@ export default {
   methods: {
     getCustomerDetail() {
       let params = {
-        socCode: '10000'
+        socCode: this.socCode
       }
       api.customerView.getCustomerDetail(params).then(({data}) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {
@@ -283,7 +288,7 @@ export default {
         current: 1,
         deptCode: '',
         size: 1000,
-        socCode: '10000'
+        socCode: this.socCode
       }
       api.customerView.getCustGradeList(params).then(({data}) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {

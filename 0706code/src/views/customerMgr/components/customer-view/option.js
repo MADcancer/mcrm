@@ -313,8 +313,8 @@ export function getAssets(data) {
   let x = data.prodRank / data.custCount * 3
   let option = {
     grid: [
-      {left: '7%', top: '10%', width: '38%', height: '38%'},
-      {left: '7.1%', top: '13.5%', width: '34.5%', height: '34.5%'}
+      {left: '15%', top: '14%', width: '60%', height: '60%'},
+      {left: '15.1%', top: '20%', width: '54.5%', height: '54%'}
     ],
     xAxis: [
       {

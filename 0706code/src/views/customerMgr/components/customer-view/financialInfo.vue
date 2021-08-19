@@ -65,6 +65,11 @@
 
 <script>
 export default {
+  props: {
+    socCode: {
+      type: String
+    }
+  },
   data() {
     return {
       tableData: []

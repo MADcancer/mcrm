@@ -54,6 +54,11 @@
 
 <script>
 export default {
+  props: {
+    socCode: {
+      type: String
+    }
+  },
   data() {
     return {
       isSupp: window.SITE_CONFIG['isSupp'] === '1',

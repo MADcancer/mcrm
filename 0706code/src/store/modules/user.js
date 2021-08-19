@@ -29,6 +29,9 @@ const mutations = {
   },
   [types.UPDATE_USER_CHANNEL] (state, { channel }) {
     state.channel = channel
+  },
+  [types.UPDATE_USER_INFO] (state, { userInfo }) {
+    state.userInfo = userInfo
   }
 }
 

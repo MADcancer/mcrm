@@ -14,6 +14,12 @@
             <div class="cust-label">业务提升</div>
             <div class="cust-label">授信客户</div>
           </div>
+          <div class="customer-img">
+            <div class="icon-tel" @click="toContacts()"></div>
+            <div class="ml-10" :class="{'icon-collection': customerFocus, 'icon-no-collection': !customerFocus}" @click="saveCustFocus()">
+              <i v-if="!customerFocus" class="el-icon-star-on"></i>
+            </div>
+          </div>
         </div>
         <div class="box-bottom">
           客户编号：{{ customerMessage.custNo }}
@@ -26,22 +32,21 @@
       </li>
     </ul>
     <div class="scroll-body">
-      <customer-profile v-if="tabBar.id === 'customer'"></customer-profile>
-      <customer-info v-if="tabBar.id === 'essential'"></customer-info>
-      <business-info v-if="tabBar.id === 'business'"></business-info>
-      <credit-info v-if="tabBar.id === 'credit'"></credit-info>
-      <financial-info v-if="tabBar.id === 'financial'"></financial-info>
-      <senior-executive v-if="tabBar.id === 'seniorExecutive'"></senior-executive>
-      <be-listed v-if="tabBar.id === 'beListed'"></be-listed>
-      <contacts v-if="tabBar.id === 'contacts'"></contacts>
-      <visit-record v-if="tabBar.id === 'visitRecord'"></visit-record>
+      <customer-profile :socCode="socCode" v-if="tabBar.id === 'customer'"></customer-profile>
+      <customer-info :socCode="socCode" v-if="tabBar.id === 'essential'"></customer-info>
+      <business-info :socCode="socCode" v-if="tabBar.id === 'business'"></business-info>
+      <credit-info :socCode="socCode" v-if="tabBar.id === 'credit'"></credit-info>
+      <financial-info :socCode="socCode" v-if="tabBar.id === 'financial'"></financial-info>
+      <senior-executive :socCode="socCode" v-if="tabBar.id === 'seniorExecutive'"></senior-executive>
+      <be-listed :socCode="socCode" v-if="tabBar.id === 'beListed'"></be-listed>
+      <contacts :customerMessage="customerMessage" :socCode="socCode" v-if="tabBar.id === 'contacts'"></contacts>
+      <visit-record :socCode="socCode" v-if="tabBar.id === 'visitRecord'"></visit-record>
     </div>
   </div>
 </template>
 <script>
 import API from '@/api'
 import { Constants } from '../customerMgr/constants'
-import {getCustFocus, saveMsg} from '../../api/modules/custmgr/customerView'
 
 export default {
   computed: {
@@ -143,13 +148,15 @@ export default {
           id: 'visitRecord'
         }
       ],
-      tabBar: {}
+      tabBar: {},
+      customerFocus: false,
+      socCode: ''
     }
   },
   methods: {
     getTabChange() {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         roleId: this.$store.state.user.roleId,
         userNo: this.$store.state.user.id
       }
@@ -168,13 +175,13 @@ export default {
     },
     getCustFocus() {
       let params = {
-        socCode: '10000',
+        socCode: this.socCode,
         roleId: this.$store.state.user.roleId,
         userNo: this.$store.state.user.id
       }
       API.customerView.getCustFocus(params).then(({ data }) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {
-          console.log('getCustFocus', data)
+          this.customerFocus = data.data
         }
       })
     },
@@ -192,7 +199,7 @@ export default {
     },
     getCustomerMessage() {
       let params = {
-        socCode: '10000'
+        socCode: this.socCode
       }
       API.customerView.getCustomerInfo(params).then(({ data }) => {
         if (data && data.code === Constants.HTTP_SUCCESS) {
@@ -203,19 +210,39 @@ export default {
     },
     activeEvent(tab) {
       this.tabs.forEach(tabItem => {
-        tabItem.active = false
+        if (tabItem.id === tab.id) {
+          tabItem.active = true
+          this.tabBar = tabItem
+          if (tabItem.hasNew) {
+            this.saveMsg(tabItem)
+          }
+        } else {
+          tabItem.active = false
+        }
       })
-      tab.active = true
-      this.tabBar = tab
-      if (tab.hasNew) {
-        this.saveMsg(tab)
+    },
+    toContacts() {
+      this.activeEvent({id: 'contacts'})
+    },
+    saveCustFocus() {
+      let params = {
+        socCode: this.socCode,
+        roleId: this.$store.state.user.roleId,
+        userNo: this.$store.state.user.id
       }
+      API.customerView.saveCustFocus(params).then(({ data }) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          this.customerFocus = data.data
+        }
+      })
     }
   },
   created() {
+    this.socCode = this.$route.params.socCode
     this.tabBar = this.tabs.find(tab => tab.id === 'customer')
     this.getCustomerMessage()
     this.getTabChange()
+    this.getCustFocus()
   }
 }
 </script>
@@ -246,6 +273,7 @@ export default {
       padding: 32px 0 32px 32px;
       .box-top {
         display: flex;
+        padding-right: 24px;
         .cust-name {
           height: 33px;
           font-size: 24px;
@@ -257,6 +285,7 @@ export default {
         .label-box {
           display: flex;
           margin-left: 72px;
+          flex: 1;
           .cust-label {
             height: 32px;
             margin-left: 8px;
@@ -272,6 +301,10 @@ export default {
               margin-left: 0;
             }
           }
+        }
+        .customer-img {
+          display: flex;
+          align-items: center;
         }
       }
       .box-bottom {

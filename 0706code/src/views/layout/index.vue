@@ -109,7 +109,8 @@ export default {
           pointsSubType: res.data.data['pointsSubType'],
           tdtsmst: res.data.data['tdtsmst'],
           jobType: res.data.data['jobType'],
-          actType: res.data.data['actType']
+          actType: res.data.data['actType'],
+          servType: res.data.data['servType']
         }
       }).catch(res => {
         this.$message.error(res.message)
@@ -130,10 +131,11 @@ export default {
           this.UPDATE_USER_ROLE_ID({ roleId: data.data.roleIdList && data.data.roleIdList[0] })
           this.UPDATE_USER_ROLE_NAME({ roleName: data.data.roleName })
           this.UPDATE_USER_CHANNEL({ channel: data.data.channel })
+          this.UPDATE_USER_INFO({ userInfo: data.data })
         }
       })
     },
-    ...mapMutations(['UPDATE_DOCUMENT_CLIENT_HEIGHT', 'UPDATE_USER_ID', 'UPDATE_USER_NAME', 'UPDATE_USER_ROLE_ID', 'UPDATE_USER_ROLE_NAME', 'UPDATE_USER_CHANNEL', 'DELETE_CONTENT_TABS'])
+    ...mapMutations(['UPDATE_DOCUMENT_CLIENT_HEIGHT', 'UPDATE_USER_ID', 'UPDATE_USER_NAME', 'UPDATE_USER_ROLE_ID', 'UPDATE_USER_ROLE_NAME', 'UPDATE_USER_CHANNEL', 'UPDATE_USER_INFO', 'DELETE_CONTENT_TABS'])
   }
 }
 </script>

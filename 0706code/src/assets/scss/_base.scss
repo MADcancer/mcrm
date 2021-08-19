@@ -9,6 +9,7 @@ body {
   line-height: 1.15;
   color: $--color-text-primary;
   background-color: #fff;
+  min-width: 1366px;
 }
 a {
   color: mix(#fff, $--color-primary, 20%);
@@ -258,6 +259,7 @@ img {
   z-index: 1020;
   width: 230px;
   overflow: hidden;
+  background: #ffffff;
   // background-color: #5C8A06;
   &--dark {
     background-color: $sidebar--background-color-dark;

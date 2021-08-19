@@ -25,33 +25,33 @@
           style="width: 100%"
           :header-row-class-name="'self-header-2'">
           <el-table-column
-            prop="productLabelTw"
+            prop="twoProdNo"
             label="产品二级类目"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="productLabelTr"
+            prop="threeProdNo"
             label="产品三级类目"
             width="180">
           </el-table-column>
           <el-table-column
-            prop="productCode"
+            prop="prodNo"
             label="产品编码">
           </el-table-column>
           <el-table-column
-            prop="productName"
+            prop="prodName"
             label="产品名称">
           </el-table-column>
           <el-table-column
-            prop="balance"
+            prop="prodBal"
             label="余额">
           </el-table-column>
           <el-table-column
-            prop="number"
+            prop="prodCnt"
             label="笔数">
           </el-table-column>
           <el-table-column
-            prop="summary"
+            prop="prodAmtY"
             label="汇总">
           </el-table-column>
           <el-table-column
@@ -74,18 +74,28 @@
 </template>
 
 <script>
+import api from '@/api'
+import { Constants } from '../../constants'
+
 export default {
+  props: {
+    socCode: {
+      type: String
+    }
+  },
   data() {
     return {
       tabData: [
         {
           text: '资产',
           active: true,
-          id: 'assets'
+          id: 'assets',
+          type: 1
         }, {
           text: '负债',
           active: false,
-          id: 'liabilities'
+          id: 'liabilities',
+          type: 2
         }
       ],
       tabBar: {},
@@ -99,7 +109,26 @@ export default {
       })
       tab.active = true
       this.tabBar = tab
+      this.getHoldDetailList()
+    },
+    getHoldDetailList() {
+      this.tableData = []
+      let params = {
+        current: 1,
+        socCode: this.socCode,
+        total: 10,
+        type: this.tabBar.type
+      }
+      api.customerView.getHoldDetailList(params).then(({data}) => {
+        if (data && data.code === Constants.HTTP_SUCCESS) {
+          this.tableData = data.data ? data.data.records : []
+        }
+      })
     }
+  },
+  created() {
+    this.tabBar = this.tabData[0]
+    this.getHoldDetailList()
   }
 }
 </script>
